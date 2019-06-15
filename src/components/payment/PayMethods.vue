@@ -92,7 +92,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] ===1){
+            if (data["code"] === 200){
               //创建一个div对象,将后台传过来的HTML表单,追加到里面.
               const div = document.createElement('div');
               div.innerHTML = data["data"];
@@ -110,7 +110,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.order = data["data"];
             }else {
               alert(data["msg"]);

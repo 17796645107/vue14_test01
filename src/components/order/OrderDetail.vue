@@ -175,7 +175,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.userAddressList = data["data"];
             } else {
               alert(data["msg"]);
@@ -195,7 +195,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.OrderList = data["data"];
             } else {
               alert(data["msg"]);
@@ -218,7 +218,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.$router.push({
                 path:"/pay/payMethods",
                 query:{

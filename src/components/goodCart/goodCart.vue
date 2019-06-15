@@ -23,7 +23,7 @@
               <td>
                 <div class="p_info">
                   <a href="">
-                    <img :src="'../../static/product/'+goodCart.product.default_image" alt="" />
+                    <img :src="'../../static/product/'+goodCart.product.default_image.image" alt="" />
                   </a>
                   <div class="p_title">
                     <p>{{goodCart.product.title}}</p>
@@ -142,7 +142,7 @@
             }).then(result =>{
               return result.json()
             }).then(data =>{
-              if (data["code"] === 1){
+              if (data["code"] === 200){
                 this.getGoodCart(this.$store.getters.getUser.user_id);
                 alert("删除成功");
               }else{
@@ -150,14 +150,14 @@
               }
             })
           },
-          getGoodCart:function (user_id) {
-            let url = "/apis/goodCart/getGoodCart/"+user_id;
+          getGoodCart:function (userNo) {
+            let url = "/apis/goodCart/getGoodCart/"+ userNo;
             fetch(url,{
               method:'get',
             }).then(result =>{
               return result.json()
             }).then(data =>{
-              if (data["code"] === 1){
+              if (data["code"] === 200){
                 this.GoodCartList = data["data"];
               } else{
                 alert(data["msg"]);
@@ -167,8 +167,8 @@
         },
         created(){
           if (this.$store.getters.getUserState === "true") {
-            let user_id = this.$store.getters.getUser.user_id;
-            this.getGoodCart(user_id);
+            let userNo = this.$store.getters.getUser.user_no;
+            this.getGoodCart(userNo);
           }else{
             this.$router.push("/user/login");
           }
@@ -216,7 +216,7 @@
     width: 16px;
     height: 21px;
     display: inline-block;
-    background-assets: url(../../assets/user/i-level-small.png);
+    background: url(../../assets/user/i-level-small.png);
     background-repeat: no-repeat;
     vertical-align: middle;
   }

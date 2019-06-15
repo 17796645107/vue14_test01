@@ -112,14 +112,17 @@ export default {
           method:"post",
           //一定要写请求头,指定请求类型为json
           headers:{
-            "Content-Type": "application/x-www-form-urlencoded",//表单提交
+            "Content-Type":"application/json"
           },
-          body:"telephone="+this.telephone+"&password="+this.password
+          body:JSON.stringify({
+            "telephone":this.telephone,
+            "pwd":this.password,
+          })
         }).then(result =>{
           return result.json();
         }).then(data =>{
           //登录成功
-          if (data["code"] === 1){
+          if (data["code"] === 200){
             //保存用户信息到Vuex
             this.$store.commit('saveUser',data["data"]);
             //记住密码
@@ -128,6 +131,7 @@ export default {
             this.$router.go(-1);
           }else {
             //登录失败
+            this.loginText = "登录";
             alert(data["msg"]);
           }
         })

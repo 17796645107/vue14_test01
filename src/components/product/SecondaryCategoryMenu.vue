@@ -124,7 +124,7 @@
             method:"get"
           }).then(result => result.json())
             .then(data =>{
-              if (data["code"] ===1){
+              if (data["code"] === 200){
                 this.productList = data["data"];
               } else {
                 alert(data["msg"]);
@@ -136,7 +136,7 @@
             method:"get"
           }).then(result => result.json())
             .then(value => {
-              if (value["code"] === 1){
+              if (value["code"] === 200){
                 this.brandList = value["data"];
               } else{
                 alert(value["msg"]);
@@ -148,7 +148,7 @@
             method:"get",
           }).then(result => result.json())
             .then(data => {
-              if (data["code"] === 1){
+              if (data["code"] === 200){
                 this.productAttributeAndValue = data["data"];
               } else{
                 alert(data["msg"]);

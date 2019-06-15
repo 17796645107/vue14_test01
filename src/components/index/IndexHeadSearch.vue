@@ -1,7 +1,7 @@
 <template>
   <div class="head_logo">
-    <img src="../../assets/index/logo.png" alt="唯品会" />
-    <img src="../../assets/index/logoService.png" alt="7天放心退" />
+    <img src="../../assets/index/logo.png"  />
+    <img src="../../assets/index/logoService.png" />
 
     <div class="goodCart">
       <i></i><a href="javascript:void(0);" @click="goGoodCart">购物车</a><span class="cart_number">{{cartNumber}}</span>
@@ -93,31 +93,27 @@
         },
         //搜索商品
         searchProduct:function(){
-          if (this.getUserState !== "true") {
-            alert("请先登录！");
-            this.$router.push("/user/login");
-          }
-          fetch("/apis/user/searchProduct/",{
+          /*fetch("/apis/user/searchProduct/",{
             method:"post",
             headers:{
               'Content-Type':'application/json',
             },
-            body:JSON.stringify({"user_id":this.getUser.user_id,"search_title":this.search_title}),
+            body:JSON.stringify({"user_no":this.getUser.user_no,"search_title":this.search_title}),
           }).then(result =>{
               return result.json()
             }).then(data =>{
-              if (data["code"] === 1) {
+              if (data["code"] === 200) {
                 this.list_searchHistory();
                 this.search_title = "";
               }
               else {
                 alert(data["msg"]);
               }
-            })
+            })*/
         },
         //展示用户搜索记录
         list_searchHistory:function () {
-          let url = "/apis/user/findAllSearchHistory/"+this.getUser.user_id;
+          let url = "/apis/user/findAllSearchHistory/"+this.getUser.user_no;
           fetch(url,{
             method:"get",
           }).then(result =>{
@@ -139,12 +135,12 @@
         },
         //删除操作
         delete_search:function () {
-          fetch("/apis/user/deleteAllSearchHistoryByUser_id/"+this.getUser.user_id,{
+          fetch("/apis/user/deleteSearchHistoryByNo/"+this.getUser.user_no,{
             method:"get",
           }) .then(result =>{
               return result.json();
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.list_searchHistory();
             }
             else {
@@ -153,12 +149,12 @@
           })
         },
         getGoodCartList:function () {
-          fetch("/apis/goodCart/getGoodCart/"+this.getUser.user_id,{
+          fetch("/apis/goodCart/getGoodCart/"+this.getUser.user_no,{
             method:"get",
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1) {
+            if (data["code"] === 200) {
               this.goodCartList = data["data"];
             }else {
               alert(data["msg"]);
@@ -167,12 +163,12 @@
         },
         //获取购物车中的记录数
         getCartCount:function () {
-          fetch("/apis/goodCart/getCartCount/"+this.getUser.user_id,{
+          fetch("/apis/goodCart/getCartCount/"+this.getUser.user_no,{
             method:"get",
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.cartNumber = data["data"];
               this.$emit("putCartCount",data["data"]);
             }else {

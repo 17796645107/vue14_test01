@@ -194,8 +194,8 @@
             </a>
             <span @click="collectSeller(seller.seller_id)" class="product_collect">收藏品牌</span>
           </div>
-
         </div>
+
         <div class="main_product">
           <a name="nvzhuang" class="h1">{{navList.nav[1].categoryName}}</a>
           <div class="product" v-for="seller in twoSellers">
@@ -227,16 +227,16 @@
           //导航列表
           nav:"",
           //锚点列表
-          navName:[
-            {name:"nvzhuang"},
-            {name:"nanzhuang"},
-            {name:"neiyi"},
-            {name:"nvxie"},
-            {name:"nanxie"},
-            {name:"xiangbao"},
-            {name:"yundong"},
-            {name:"tongzhuang"}
-          ],
+          // navName:[
+          //   {name:"nvzhuang"},
+          //   {name:"nanzhuang"},
+          //   {name:"neiyi"},
+          //   {name:"nvxie"},
+          //   {name:"nanxie"},
+          //   {name:"xiangbao"},
+          //   {name:"yundong"},
+          //   {name:"tongzhuang"}
+          // ],
         },
         oneSellers:'',
         twoSellers:"",
@@ -257,7 +257,7 @@
         }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               //存入Session中
               sessionStorage.setItem("navList",JSON.stringify(data["data"]));
               this.navList.nav = data["data"];
@@ -277,7 +277,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if(data["code"] === 1){
+            if(data["code"] === 200){
               alert("收藏商户成功");
             }else {
               alert("收藏商品失败:"+data["msg"]);
@@ -294,7 +294,7 @@
         }).then(result =>{
           return result.json()
         }).then(data =>{
-          if (data["code"] === 1){
+          if (data["code"] === 200){
             this.oneSellers = data["data"];
           }else {
             alert(data["msg"]);
@@ -307,7 +307,7 @@
         }).then(result =>{
           return result.json()
         }).then(data =>{
-          if (data["code"] === 1){
+          if (data["code"] === 200){
             this.twoSellers = data["data"];
           }else {
             alert(data["msg"]);

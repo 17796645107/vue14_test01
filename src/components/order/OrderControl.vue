@@ -107,7 +107,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.orderList = data["data"];
             } else {
               alert(data["msg"]);

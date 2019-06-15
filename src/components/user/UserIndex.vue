@@ -146,19 +146,19 @@
         }).then(result =>{
           return result.json()
         }).then(data =>{
-          if (data["code"] === 1){
+          if (data["code"] === 200){
             this.orderList = data["data"];
           } else{
             alert(data["msg"]);
           }
-        })
+        });
       }
     },
     created(){
       //如果用户没有登录则跳转到登录页面
       if (this.$store.getters.getUserState === "true"){
         this.user = this.$store.getters.getUser;
-        this.getOrderTop4(this.$store.getters.getUser.user_id);
+        this.getOrderTop4(this.$store.getters.getUser.user_no);
       }else {
         this.$router.push("/user/login");
       }

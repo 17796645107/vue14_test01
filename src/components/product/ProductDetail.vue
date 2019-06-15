@@ -152,16 +152,16 @@
               'Content-Type':'application/json',
             },
             body:JSON.stringify({
-              "user_id":this.User.user_id,
-              "product_id":this.Product.product_id,
+              "userNo":this.User.user_no,
+              "product_id":this.Product.default_image.product_id,
               "product_color":this.selectColor,
               "product_size":this.selectSize,
               "product_number":this.number,
-            }),
-            }).then(result =>{
+            })
+          }).then(result =>{
               return result.json()
             }).then(data =>{
-              if (data["code"] === 1 ){
+              if (data["code"] === 200 ){
                 alert("添加购物车成功!");
                 this.$set(data,this.cartNumber,this.cartNumber++);
               }else{
@@ -259,7 +259,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-              if (data["code"] === 1){
+              if (data["code"] === 200){
                 this.ColorList = data["data"];
                 //默认展示第一种商品颜色
                 this.ColorId_now = data["data"][0]["color_id"];
@@ -278,7 +278,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-              if (data["code"] === 1){
+              if (data["code"] === 200){
                 this.SizeList = data["data"];
                 //默认选中第一种商品尺寸
                 //this.selectSize = data["data"][this.currentTwo]["size"];
@@ -301,7 +301,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.product_num = data["data"];
             }else {
               alert(data["msg"]);
@@ -320,7 +320,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.product_num = data["data"];
             } else{
               alert(data["msg"]);

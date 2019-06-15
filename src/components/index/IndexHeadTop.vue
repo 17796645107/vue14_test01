@@ -170,7 +170,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] !== 1){
+            if (data["code"] !== 200){
               alert(data["msg"]);
             }});
           //刷新界面

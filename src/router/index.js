@@ -16,6 +16,8 @@ import OrderControl from '../components/order/OrderControl'
 import UserOrderRetail from '../components/user/UserOrderDetail'
 import SecondaryCategoryMenu from '../components/product/SecondaryCategoryMenu'
 import PrimaryCategoryMenu from '../components/product/PrimaryCategoryMenu'
+import SellerLogin from '../components/seller/SellerLogin'
+import SellerMain from '../components/seller/SellerMain'
 
 Vue.use(Router);
 
@@ -92,7 +94,14 @@ export default new Router({
       path:"/product/primaryCategory",
       component:PrimaryCategoryMenu
     },
+    {
+      path:"/seller/login",
+      component:SellerLogin
+    },
+    {
+      path:"/seller/main",
+      component:SellerMain
+    },
   ],
   mode:"history",
-  base:"/wph/",
 })

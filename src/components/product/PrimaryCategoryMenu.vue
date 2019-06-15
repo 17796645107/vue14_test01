@@ -89,6 +89,7 @@
         <div class="seller_title">
           <img src="../../assets/index/today_DDp.png" alt="">
         </div>
+
         <div class="seller_warp">
           <div class="seller">
             <img src="../../assets/seller/seller/ias_155780125680915_570x273_90.jpg" alt="">
@@ -108,16 +109,24 @@
             <img src="../../assets/seller/seller/ias_155780125680915_570x273_90.jpg" alt="">
             <span class="seller_collect">收藏品牌</span>
             <div class="seller_title">
+              <span class="seller_name">每周二特惠专场-斯尔丽&瑟俪SIERLI.COLLECTION女装专场</span>
               <span class="discount">
                 <b>3</b>折起
               </span>
-              <span class="seller_name">每周二特惠专场-斯尔丽&瑟俪SIERLI.COLLECTION女装专场</span>
               <span class="seller_time">剩22时</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <el-button type="success">成功按钮</el-button>
+
+
+    <el-button type="warning">警告按钮</el-button>
+
+    <el-button type="danger">危险按钮</el-button>
+
+    <el-button type="info">信息按钮</el-button>
 
     <IndexFoot></IndexFoot>
   </div>
@@ -216,7 +225,8 @@
     width: 100%;
   }
   .seller_title{
-    width: 100%;
+    width: 1000px;
+    margin: 0 auto;
   }
   .seller_title>img{
     width: 100%;
@@ -228,7 +238,7 @@
   }
   .seller{
     width: 490px;
-    height: 275px;
+    height: 300px;
     float: left;
   }
   .seller>img{
@@ -255,5 +265,27 @@
   .seller_collect:hover{
     color: white;
     background-color: rgb(241,5,130);
+  }
+  .seller_name{
+    display: block;
+    width: 100%;
+    height: 27px;
+    line-height: 27px;
+    font-weight: 700;
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: black;
+    cursor: pointer;
+  }
+  .discount > b{
+    font-size: 18px;
+    color: #f10582;
+    margin-right: 3px;
+    font-weight: 700;
+  }
+  .seller_time {
+    display: inline-block;
+    float: right;
   }
 </style>

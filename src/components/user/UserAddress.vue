@@ -120,7 +120,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.addressList = data["data"];
             } else{
               alert(data["msg"]);
@@ -145,7 +145,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               alert("添加收货地址成功!");
               this.name = "";
               this.province = "";
@@ -165,7 +165,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               alert("删除收货地址成功！");
               this.getUserAddressList(this.$store.getters.getUser.user_id);
             }else {

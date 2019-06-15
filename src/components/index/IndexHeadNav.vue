@@ -52,7 +52,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               //存入Session中
               sessionStorage.setItem("navList",JSON.stringify(data["data"]));
               this.navList = data["data"];
@@ -89,7 +89,7 @@
               method:"get"
             }).then(result => result.json())
               .then(data =>{
-                if (data["code"] === 1){
+                if (data["code"] === 200){
                   this.secondaryCategory = data["data"];
                   sessionStorage.setItem("SecondaryCategory"+categoryId,JSON.stringify(data["data"]));
                 }else{

@@ -130,6 +130,16 @@
     </div>
 
     <div class="userIcon" v-show="showUploadFrame">
+      <!--<el-upload
+        class="avatar-uploader"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>-->
+
       <a href="javascript:;" class="close" @click="closeUploadFrame">X</a>
       <h2>自定义头像</h2>
       <div class="upload">
@@ -138,6 +148,7 @@
       </div>
       <button type="button"  @click="uploadIcon($event)">保存</button>
     </div>
+
 
     <IndexFoot></IndexFoot>
   </div>
@@ -182,7 +193,7 @@
             body:formData
           }).then(result =>result.json()
           ).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.getUserDetail();
               alert("用户头像上传成功");
             } else{
@@ -219,7 +230,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               alert("用户信息更新成功");
               this.getUserDetail();
             } else{
@@ -252,7 +263,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.user = data["data"];
               //更新用户信息
               sessionStorage.setItem("user",JSON.stringify(data["data"]));
@@ -426,7 +437,7 @@
     position: absolute;
     opacity: 1;
     z-index: 1000;
-    background: fuchsia;
+    background: #a0c5e8;
   }
   .userIcon>button{
     width: 80px;
@@ -443,5 +454,28 @@
   .close{
     float: right;
   }
-
+/*用户上传头像组件*/
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>

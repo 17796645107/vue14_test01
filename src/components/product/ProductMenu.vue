@@ -135,7 +135,7 @@
         }) .then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.secondaryList = data["data"];
             }
             else {
@@ -162,7 +162,7 @@
           body:"categoryIdList="+categoryIdList
         }).then(result => result.json())
           .then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
 
             } else{
               alert(data["msg"]);
@@ -224,7 +224,7 @@
           method:"get"
         }).then(result => result.json())
           .then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               if (data["data"] === "true"){
                 this.userIsCollectSeller = true;
               } else{
@@ -240,7 +240,7 @@
           method:"get"
         }).then(result => result.json())
           .then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.sellerCollectNum = data["data"];
             } else{
               alert(data["msg"]);
@@ -264,7 +264,7 @@
           })
         }).then(Result => Result.json())
           .then(data =>{
-            if (data["code"] === 1){
+            if (data["code"] === 200){
               this.userIsCollectSeller = true;
               this.sellerCollectNum ++;
             }

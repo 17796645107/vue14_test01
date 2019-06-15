@@ -116,15 +116,16 @@
           }) .then(result =>{
               return result.json();
             }).then(data => {
-              //手机号码重复
-              if (data["code"] < 0){
+              //手机号码可以使用
+              if (data["code"] === 200){
+                this.buttonFlag = true;
+                this.telephoneFlag = true;
+              }else {
+                //手机号码重复
                 this.buttonFlag = false;//禁用发送验证码按钮
                 this.telephoneError = data["msg"];//显示提示信息
                 this.telephoneFlag = false;
                 this.telephoneRed = true;
-              }else {
-                this.buttonFlag = true;
-                this.telephoneFlag = true;
               }
             })
         }
@@ -141,15 +142,30 @@
           },
           body:JSON.stringify({"telephone":this.telephone})
         }).then(result => {
-            return result.json() //解析JSON
+            return result.json()
         }).then(data =>{
-            if (data["code"] < 0) {
+            if (data["code"] !== 200) {
               alert(data["msg"]);
             }
           });
         //定义倒计时时间
         let time = 60;
         this.countDown(time);
+      },
+      //60s倒计时
+      countDown:function (time) {
+        let timeDown = window.setInterval(() =>{
+          time--;
+          if (time > 0){
+            this.buttonContext = time + "s后从新发送";
+            this.buttonFlag = false;
+          }
+          else {
+            window.clearInterval(timeDown);
+            this.buttonContext = "获取验证码";
+            this.buttonFlag = true;
+          }
+        },1000)
       },
       //检查验证码
       checkValidate:function(){
@@ -240,28 +256,34 @@
         fetch("/apis/user/register",{
           method:"post",
           headers:{
-            "Content-Type":"application/x-www-form-urlencoded"
+            "Content-Type":"application/json"
           },
-          credentials: 'include',//解决Session跨域访问
-          body:"telephone="+this.telephone+"&password="+this.password+"&code="+this.validateCode,
+          body:JSON.stringify({
+            "telephone":this.telephone,
+            "password":this.password,
+            "telephoneCode":this.validateCode
+          })
         }).then(result =>{
             return result.json();
           }).then(data =>{
             //注册成功
-            if (data["code"] > 0) {
+            if (data["code"] === 200) {
               // 自动执行登录操作
               fetch("/apis/user/login",{
                 method:"post",
                 headers:{
-                  "Content-Type":"application/x-www-form-urlencoded"
+                  "Content-Type":"application/json"
                 },
-                body:"telephone="+this.telephone+"&password="+this.password+"&checkBox=false",
+                body:JSON.stringify({
+                  "telephone":this.telephone,
+                  "pwd":this.password,
+                })
               }).then(result =>{
                   return result.json()
                 }).then(data =>{
-                  if (data["code"] >0){
+                  if (data["code"] === 200){
                     //保存用户登录数据
-                    this.$store.commit('saveUser1',data["data"]);
+                    this.$store.commit('saveUser',data["data"]);
                     //跳转到首页
                     this.$router.push(
                       {
@@ -276,21 +298,7 @@
             }
           })
       },
-      //60s倒计时
-      countDown:function (time) {
-        let timeDown = window.setInterval(() =>{
-          time--;
-          if (time > 0){
-            this.buttonContext = time + "s后从新发送";
-            this.buttonFlag = false;
-          }
-          else {
-            window.clearInterval(timeDown);
-            this.buttonContext = "获取验证码";
-            this.buttonFlag = true;
-          }
-        },1000)
-      },
+
     },
     //组件注册
     components: {
