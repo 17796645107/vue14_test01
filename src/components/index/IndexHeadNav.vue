@@ -5,9 +5,9 @@
         <i></i>商品分类
         <div class="primaryCategory">
           <ul>
-            <li v-for="nav in navList" @mouseover="getSecondaryCategory(nav.categoryId)">{{nav.categoryName}}</li>
+            <li v-for="nav in navList" @mouseover="getSecondaryCategory(nav.id)">{{nav.categoryName}}</li>
             <div class="secondaryCategory">
-              <a href="javascript:;" v-for="category in secondaryCategory" @click="goCategoryMenu(category.categoryId)">
+              <a href="javascript:;" v-for="category in secondaryCategory" @click="goCategoryMenu(category.id)">
                 {{category.categoryName}}
               </a>
             </div>
@@ -21,7 +21,7 @@
         <img src="../../assets/index/hot.gif"><a href="#">超级预付</a>
       </li>
       <li v-for="nav in navList">
-        <a href="javascript:;" @click="goPrimaryCategoryMenu(nav.categoryId)">{{nav.categoryName}}</a>
+        <a href="javascript:;" @click="goPrimaryCategoryMenu(nav.id)">{{nav.categoryName}}</a>
       </li>
     </ul>
   </nav>

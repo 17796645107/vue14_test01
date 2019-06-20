@@ -9,18 +9,18 @@
         <ul>
           <li v-for="goodCart in goodCartList">
             <div class="productImage">
-              <img :src="'../../static/product/'+goodCart.product.default_image.image" alt="">
+              <img :src="'../../static/product/'+goodCart.product.defaultImage.image" alt="">
             </div>
             <div class="productDetail">
               <div class="productTitle">
                 {{goodCart.product.title}}
               </div>
               <div class="colorAndSize">
-                {{goodCart.product_color}} {{goodCart.product_size}}
+                {{goodCart.productColor}} {{goodCart.productSize}}
               </div>
             </div>
             <div class="productPrice">
-              <span>¥{{goodCart.product.price}}</span>X{{goodCart.product_number}}
+              <span>¥{{goodCart.product.price}}</span>X{{goodCart.productNumber}}
             </div>
           </li>
         </ul>
@@ -113,16 +113,16 @@
         },
         //展示用户搜索记录
         list_searchHistory:function () {
-          let url = "/apis/user/findAllSearchHistory/"+this.getUser.user_no;
+          let url = "/apis/user/findAllSearchHistory/"+this.getUser.id;
           fetch(url,{
             method:"get",
           }).then(result =>{
               return result.json()
             }).then(data =>{
-              if (data["code"] < 0){
-                alert(data["msg"]);
-              }else{
+              if (data["code"] === 200){
                 this.searchHistory = data["data"];
+              }else{
+                alert(data["msg"]);
               }
             })
         },
@@ -135,7 +135,7 @@
         },
         //删除操作
         delete_search:function () {
-          fetch("/apis/user/deleteSearchHistoryByNo/"+this.getUser.user_no,{
+          fetch("/apis/user/deleteSearchHistoryByNo/"+this.getUser.id,{
             method:"get",
           }) .then(result =>{
               return result.json();
@@ -149,7 +149,7 @@
           })
         },
         getGoodCartList:function () {
-          fetch("/apis/goodCart/getGoodCart/"+this.getUser.user_no,{
+          fetch("/apis/goodCart/getGoodCart/"+this.getUser.id,{
             method:"get",
           }).then(result =>{
             return result.json()
@@ -163,7 +163,7 @@
         },
         //获取购物车中的记录数
         getCartCount:function () {
-          fetch("/apis/goodCart/getCartCount/"+this.getUser.user_no,{
+          fetch("/apis/goodCart/getCartCount/"+this.getUser.id,{
             method:"get",
           }).then(result =>{
             return result.json()

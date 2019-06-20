@@ -68,11 +68,11 @@
         </div>
         <div class="product_list" id="product_list">
           <div class="product" v-for="product in productList">
-            <a href="javascript:;" @click="goProductDetail(product.default_image.product_id)" class="product_image">
+            <a href="javascript:;" @click="goProductDetail(product.defaultImage.productId)" class="product_image">
               <!--动态拼接src-->
               <!--单引号包裹的是常量，+号后跟的是变量，拼接起来用双引号包裹   -->
               <!--:src    Vue标签-->
-              <img :src="'../../../static/product/'+product.default_image.image" />
+              <img :src="'../../../static/product/'+product.defaultImage.image" />
             </a>
             <div class="price">
               <span>￥{{Math.ceil(product.price*0.7)}}</span><!--打折后的价格，向上取整-->
@@ -83,7 +83,7 @@
               </div>
             </div>
             <div class="title">
-              <a href="javascript:void(0)" @click="goProductDetail(product.default_image.product_id)">{{product.title}}</a>
+              <a href="javascript:void(0)" @click="goProductDetail(product.defaultImage.productId)">{{product.title}}</a>
             </div>
             <div class="new_product">
               <img src="../../assets/product/fe509ab1-ec01-4ee8-b053-ed3f2e052c47.png" />
@@ -177,7 +177,7 @@
         }) .then(result =>{
             return result.json();
           }).then(data =>{
-            if (data["code"] > 0){
+            if (data["code"] === 200){
               this.productSize = data["data"];
             }else {
               alert(data["msg"]);
@@ -192,7 +192,7 @@
         }) .then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"]  === 1){
+            if (data["code"]  === 200){
               this.productList = data["data"];
             }
             else {
@@ -208,7 +208,7 @@
         }).then(result =>{
           return result.json()
         }).then(data =>{
-          if (data["code"] > 0){
+          if (data["code"] === 200){
             this.seller = data["data"];
             this.getSecondaryList(data["data"]["type"],seller_id);
             this.getProductSizeList(data["data"]["type"]);

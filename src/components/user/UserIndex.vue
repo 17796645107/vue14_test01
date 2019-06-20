@@ -79,12 +79,12 @@
             <div class="order_main">
               <table>
                 <tr v-for="order in orderList.list">
-                  <td ><img :src="'../../../static/product/'+order.goodCartList[0].product.default_image.image"> </td>
+                  <td ><img :src="'../../../static/product/'+order.goodCartList[0].product.defaultImage.image"> </td>
                   <td>
-                    <p>订单号:{{order.order_id}}</p>
+                    <p>订单号:{{order.id}}</p>
                     <p>{{order.created}}</p>
                   </td>
-                  <td>¥{{order.product_total}}</td>
+                  <td>¥{{order.productTotal}}</td>
                   <td>订单已取消</td>
                   <td><a href="">查看详情</a></td>
                 </tr>
@@ -158,7 +158,7 @@
       //如果用户没有登录则跳转到登录页面
       if (this.$store.getters.getUserState === "true"){
         this.user = this.$store.getters.getUser;
-        this.getOrderTop4(this.$store.getters.getUser.user_no);
+        this.getOrderTop4(this.$store.getters.getUser.id);
       }else {
         this.$router.push("/user/login");
       }

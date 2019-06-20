@@ -24,6 +24,11 @@ export const store = new Vuex.Store({
       state.isLogin = false;
       sessionStorage.removeItem("user");
       sessionStorage.setItem("isLogin",false);
+    },
+    updateUser(state,user){
+      state.user = '';
+      sessionStorage.removeItem("user");
+      this.saveUser(state,user);
     }
   },
   getters:{

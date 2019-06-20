@@ -11,16 +11,16 @@
       <div class="body">
         <div class="product_detail">
           <div class="p_img">
-            <img v-bind:src="'../../static/product/'+Product.default_image.image">
+            <img v-bind:src="'../../static/product/'+Product.defaultImage.image">
             <div class="img_list">
               <ul>
-                <li v-for="image in ImageList" v-if="image.color_id === ColorId_now">
+                <li v-for="image in ImageList" v-if="image.colorId === ColorId_now">
                   <img :src="'../../static/product/'+image.image" @click="showBigImage(image.image)"/>
                 </li>
               </ul>
             </div>
             <div class="p_collect">
-              <span>商品编码:{{Product.default_image.product_id}}</span>
+              <span>商品编码:{{Product.productNo}}</span>
               <a href="">
                 <i></i>收藏商品
               </a>
@@ -60,7 +60,7 @@
             <div class="p_size">
               <label>颜色</label>
               <ul>
-                <li v-for="(color,index) in ColorList" @click="changeImage(color.color_id,color.color)" v-on:click="addClassColor(index)">
+                <li v-for="(color,index) in ColorList" @click="changeImage(color.id,color.color)" v-on:click="addClassColor(index)">
                   {{color.color}}<span v-bind:class="{bg:index === currentOne}"></span>
                 </li>
               </ul>
@@ -152,8 +152,8 @@
               'Content-Type':'application/json',
             },
             body:JSON.stringify({
-              "userNo":this.User.user_no,
-              "product_id":this.Product.default_image.product_id,
+              "userNo":this.User.id,
+              "product_id":this.Product.defaultImage.productId,
               "product_color":this.selectColor,
               "product_size":this.selectSize,
               "product_number":this.number,
@@ -174,7 +174,7 @@
         //点击小图,查看大图效果
         showBigImage:function(image){
           //这样就能被vue监控到，更新视图
-          this.$set(this.Product.default_image,"image",image);
+          this.$set(this.Product.defaultImage,"image",image);
         },
         //颜色,尺寸选中效果
         addClassColor:function(index){
@@ -211,8 +211,8 @@
           this.ColorId_now = colorId;
           //更换大图
           for(let i=0;i<this.ImageList.length;i++){
-            if (this.ImageList[i]["color_id"] === colorId) {
-              this.$set(this.Product.default_image,"image",this.ImageList[i]["image"]);
+            if (this.ImageList[i]["colorId"] === colorId) {
+              this.$set(this.Product.defaultImage,"image",this.ImageList[i]["image"]);
               break;
             }
           }
@@ -224,12 +224,10 @@
           let url = "/apis/product/getProductByProductId/"+productId;
           fetch(url,{
             method:'get'
-          }).catch(reason => {
-            console.log(reason);
           }).then(result =>{
             return result.json()
           }) .then(data =>{
-            if (data["code"] > 0){
+            if (data["code"] === 200){
               this.Product = data["data"];
             }else {
               alert(data["msg"]);
@@ -244,7 +242,7 @@
           }).then(result =>{
             return result.json()
           }).then(data =>{
-              if (data["code"] > 0){
+              if (data["code"] === 200){
                 this.ImageList = data["data"];
               }else {
                 alert(data["msg"]);
@@ -262,7 +260,7 @@
               if (data["code"] === 200){
                 this.ColorList = data["data"];
                 //默认展示第一种商品颜色
-                this.ColorId_now = data["data"][0]["color_id"];
+                this.ColorId_now = data["data"][0]["id"];
                 //默认选中第一种商品颜色
                 //this.selectColor = data["data"][this.currentOne]["color"];
               }else {
@@ -294,7 +292,7 @@
               "Content-type":"application/json"
             },
             body:JSON.stringify({
-              "product_id":this.Product.default_image.product_id,
+              "productId":this.Product.defaultImage.productId,
               "product_color":this.selectColor,
               "product_size":this.selectSize,
             })
@@ -315,7 +313,7 @@
               "Content-type":"application/json"
             },
             body:JSON.stringify({
-              "product_id":id,
+              "productId":id,
             })
           }).then(result =>{
             return result.json()

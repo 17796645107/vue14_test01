@@ -221,7 +221,7 @@
               "Content-type":"application/json"
             },
             body:JSON.stringify({
-              "user_id":this.user.user_id,
+              "id":this.user.id,
               "nickname":this.user.nickname,
               "sex":this.user.sex,
               "birthday":this.user.birthday,
@@ -232,7 +232,7 @@
           }).then(data =>{
             if (data["code"] === 200){
               alert("用户信息更新成功");
-              this.getUserDetail();
+              this.getUserDetail(this.user.id);
             } else{
               alert(data["msg"]);
             }
@@ -253,13 +253,9 @@
           }
           return true;
         },
-        getUserDetail:function () {
-          fetch("/apis/user/getUserDetail",{
-            method:"post",
-            headers:{
-              "Content-type":"application/json"
-            },
-            body:JSON.stringify({"telephone":this.user.telephone})
+        getUserDetail:function (userId) {
+          fetch("/apis/user/getUserById/" + userId,{
+            method:"get",
           }).then(result =>{
             return result.json()
           }).then(data =>{

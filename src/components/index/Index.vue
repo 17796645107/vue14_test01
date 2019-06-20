@@ -189,20 +189,20 @@
         <div class="main_product">
           <a name="nvzhuang" class="h1">{{navList.nav[0].categoryName}}</a>
           <div class="product" v-for="seller in oneSellers">
-            <a href="javascript:;" @click="goProductMenu(seller.seller_id)" class="seller_go">
-              <img class="test" :src="'../../static/seller/seller/'+seller.show_image" />
+            <a href="javascript:;" @click="goProductMenu(seller.id)" class="seller_go">
+              <img class="test" :src="'../../static/seller/seller/'+seller.showImage" />
             </a>
-            <span @click="collectSeller(seller.seller_id)" class="product_collect">收藏品牌</span>
+            <span @click="collectSeller(seller.id)" class="product_collect">收藏品牌</span>
           </div>
         </div>
 
         <div class="main_product">
           <a name="nvzhuang" class="h1">{{navList.nav[1].categoryName}}</a>
           <div class="product" v-for="seller in twoSellers">
-            <a href="javascript:;" @click="goProductMenu(seller.seller_id)" class="seller_go">
-              <img class="test" :src="'../../static/seller/seller/'+seller.show_image" />
+            <a href="javascript:;" @click="goProductMenu(seller.id)" class="seller_go">
+              <img class="test" :src="'../../static/seller/seller/'+seller.showImage" />
             </a>
-            <span @click="collectSeller(seller.seller_id)" class="product_collect">收藏品牌</span>
+            <span @click="collectSeller(seller.id)" class="product_collect">收藏品牌</span>
           </div>
         </div>
       </div>
