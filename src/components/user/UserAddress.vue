@@ -134,7 +134,7 @@
               "Content-type":"application/json"
             },
             body:JSON.stringify({
-              "user_id":this.$store.getters.getUser.user_id,
+              "userId":this.$store.getters.getUser.id,
               "name":this.name,
               "province":this.province,
               "city":this.city,
@@ -153,21 +153,21 @@
               this.town = "";
               this.area = "";
               this.telephone = "";
-              this.getUserAddressList(this.$store.getters.getUser.user_id);
+              this.getUserAddressList(this.$store.getters.getUser.id);
             } else{
               alert(data["msg"]);
             }
           })
         },
         deleteAddress:function (id) {
-          fetch("/apis/user/deleteUserAddressByAddressID/"+this.$store.getters.getUser.user_id+"/"+id,{
+          fetch("/apis/user/deleteUserAddressByAddressID/"+this.$store.getters.getUser.id+"/"+id,{
             method:"get"
           }).then(result =>{
             return result.json()
           }).then(data =>{
             if (data["code"] === 200){
               alert("删除收货地址成功！");
-              this.getUserAddressList(this.$store.getters.getUser.user_id);
+              this.getUserAddressList(this.$store.getters.getUser.id);
             }else {
               alert(data["msg"]);
             }
@@ -179,7 +179,7 @@
       },
       created(){
         if (this.$store.getters.getUserState === "true") {
-          this.getUserAddressList(this.$store.getters.getUser.user_id);
+          this.getUserAddressList(this.$store.getters.getUser.id);
         }else {
           this.$router.push("/user/login");
         }

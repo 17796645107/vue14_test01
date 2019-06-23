@@ -23,13 +23,13 @@
               <td>
                 <div class="p_info">
                   <a href="">
-                    <img :src="'../../static/product/'+goodCart.product.default_image.image" alt="" />
+                    <img :src="'../../static/product/'+goodCart.product.defaultImage.image" alt="" />
                   </a>
                   <div class="p_title">
                     <p>{{goodCart.product.title}}</p>
                     <p class="p_size">
-                      尺码：<span>{{goodCart.product_size}}</span>&nbsp;&nbsp;&nbsp;
-                      颜色: <span>{{goodCart.product_color}}</span>
+                      尺码：<span>{{goodCart.productSize}}</span>&nbsp;&nbsp;&nbsp;
+                      颜色: <span>{{goodCart.productColor}}</span>
                     </p>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
               <td class="p_number">
                 <div class="btn_number">
                   <a href="javascript:;">-</a>
-                  <em>{{goodCart.product_number}}</em>
+                  <em>{{goodCart.productNumber}}</em>
                   <a href="javascript:;">+</a>
                 </div>
               </td>
@@ -49,7 +49,7 @@
                 ¥ 1296
               </td>
               <td class="delete_goodCart">
-                <a href="javascript:;" @click="deleteGoodCart(goodCart.cart_id)">删除</a>
+                <a href="javascript:;" @click="deleteGoodCart(goodCart.id)">删除</a>
               </td>
             </tr>
           </table>
@@ -130,7 +130,7 @@
             let idList = goodCartList.map(
               goodCart =>{
                 return{
-                  id:goodCart.cart_id,
+                  id:goodCart.id,
                 }
               }
             );
@@ -150,8 +150,8 @@
               }
             })
           },
-          getGoodCart:function (userNo) {
-            let url = "/apis/goodCart/getGoodCart/"+ userNo;
+          getGoodCart:function (userId) {
+            let url = "/apis/goodCart/getGoodCart/"+ userId;
             fetch(url,{
               method:'get',
             }).then(result =>{
@@ -167,8 +167,8 @@
         },
         created(){
           if (this.$store.getters.getUserState === "true") {
-            let userNo = this.$store.getters.getUser.user_no;
-            this.getGoodCart(userNo);
+            let userId = this.$store.getters.getUser.id;
+            this.getGoodCart(userId);
           }else{
             this.$router.push("/user/login");
           }

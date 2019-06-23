@@ -13,7 +13,7 @@
       <div class="address_info">
         <div class="address_info_title">
           <h2>收货信息</h2>
-          <a href="">新增收货地址</a>
+          <a href="/user/address">新增收货地址</a>
         </div>
         <div class="address_info_list">
           <ul>
@@ -65,15 +65,15 @@
             </tr>
             <tr class="p_desc" v-for="order in OrderList">
               <td>
-                <img :src="'../../../static/product/'+order.product.default_image" alt="" />
+                <img :src="'../../../static/product/'+order.product.defaultImage.image" alt="" />
                 <div class="p_title">
                   {{order.product.title}}
                 </div>
               </td>
-              <td>{{order.product_size}}</td>
-              <td>{{order.product_color}}</td>
+              <td>{{order.productSize}}</td>
+              <td>{{order.productColor}}</td>
               <td>￥{{order.product.price}}</td>
-              <td>{{order.product_number}}</td>
+              <td>{{order.productNumber}}</td>
             </tr>
 
           </table>
@@ -209,11 +209,11 @@
               'Content-Type':'application/json',
             },
             body:JSON.stringify({
-              "user_id":this.$store.getters.getUser.user_id,
+              "userId":this.$store.getters.getUser.id,
               "goodCartList":this.OrderList,
-              "address_id":1,
-              "product_total":1000,
-              "order_count":this.idArray.length,
+              "addressId":1,
+              "productTotal":1000,
+              "orderCount":this.idArray.length,
             })
           }).then(result =>{
             return result.json()
@@ -234,7 +234,7 @@
       },
       mounted(){
         if (this.$store.getters.getUserState === "true") {
-          this.getUserAddressList(this.$store.getters.getUser.user_id);
+          this.getUserAddressList(this.$store.getters.getUser.id);
           this.getGoodList(JSON.parse(this.$route.query.list));
         }else {
           this.$router.push("/user/login");

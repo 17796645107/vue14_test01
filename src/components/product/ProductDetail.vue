@@ -152,11 +152,11 @@
               'Content-Type':'application/json',
             },
             body:JSON.stringify({
-              "userNo":this.User.id,
-              "product_id":this.Product.defaultImage.productId,
-              "product_color":this.selectColor,
-              "product_size":this.selectSize,
-              "product_number":this.number,
+              "userId":this.User.id,
+              "productId":this.Product.defaultImage.productId,
+              "productColor":this.selectColor,
+              "productSize":this.selectSize,
+              "productNumber":this.number,
             })
           }).then(result =>{
               return result.json()
