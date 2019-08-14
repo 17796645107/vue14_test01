@@ -458,15 +458,7 @@
     height: 166px;
   }
   .newGoods_area>table a>p{
-    /*width: 132px;
-    height: 42px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 14px;
-    color: black;
-    -webkit-line-clamp: 2;*/
+
   }
   .newGoods_area>table a>p:hover{
     color: fuchsia;
