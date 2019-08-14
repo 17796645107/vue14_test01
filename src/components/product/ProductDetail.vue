@@ -293,8 +293,8 @@
             },
             body:JSON.stringify({
               "productId":this.Product.defaultImage.productId,
-              "product_color":this.selectColor,
-              "product_size":this.selectSize,
+              "productColor":this.selectColor,
+              "productSize":this.selectSize,
             })
           }).then(result =>{
             return result.json()

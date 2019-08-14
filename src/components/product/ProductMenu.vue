@@ -25,21 +25,20 @@
           <a href="javascript:;" v-if="!userIsCollectSeller" @click="collectSeller">收藏品牌<span>({{sellerCollectNum}})</span></a>
         </div>
         <div class="menu_fenLei" id="secondary_list">
-          <label>分类:</label>
+          <label>分类：</label>
           <ul>
-            <li>
-              <a href="">全部分类</a>
-            </li>
+            <li><a href="">全部分类</a></li>
             <li v-for="secondary in secondaryList">
-              <a href="javascript:void(0)">{{secondary.categoryName}}<span>({{secondary.productCount}})</span></a>
+              <a href="javascript:void(0)" @click="searchProductByCategoryId(secondary.id)">{{secondary.categoryName}}<span>({{secondary.productCount}})</span></a>
             </li>
           </ul>
         </div>
         <div class="menu_size" id="product_size">
           <label>尺码：</label>
           <ul>
+            <li><a href="">全部尺码</a></li>
             <li v-for="product_size in productSize">
-              <a href="javascript:void(0)">{{product_size.size}}</a>
+              <a href="javascript:void(0)" @click="searchProductBySizeId(product_size.id)">{{product_size.size}}</a>
             </li>
           </ul>
         </div>
@@ -50,24 +49,24 @@
         <div class="product_list_title">
           <div class="search_param">
             <ul>
-              <li>综合</li>
-              <li>价格↑</li>
-              <li>折扣</li>
+              <li @click="getProductList">综合</li>
+              <li @click="searchProductByType(1)">价格 <i class="el-icon-d-caret"></i></li>
+              <li @click="searchProductByType(2)">折扣 <i class="el-icon-d-caret"></i></li>
               <li>
-                <input type="checkbox"/>只看有货商品
+                <input type="checkbox" @click="searchProductByIsHasNum"/>只看有货商品
               </li>
             </ul>
           </div>
           <div class="page">
-            <span class="productNum"><b>{{productList.length}}</b>件商品</span>
-            <span >3/4</span>
+            <span class="productNum"><b>{{productList.total}}</b>件商品</span>
+            <span >{{productList.pageNum}}/{{productList.pages}}</span>
             <a href="" class="select_page"><</a>
             <a href="" class="select_page">下一页</a>
             <a href="" class="select_page">></a>
           </div>
         </div>
         <div class="product_list" id="product_list">
-          <div class="product" v-for="product in productList">
+          <div class="product" v-for="product in productList.list">
             <a href="javascript:;" @click="goProductDetail(product.defaultImage.productId)" class="product_image">
               <!--动态拼接src-->
               <!--单引号包裹的是常量，+号后跟的是变量，拼接起来用双引号包裹   -->
@@ -108,13 +107,25 @@
     data(){
       return{
         secondaryList:"",
-        productList:"",
+        productList:"",//商品列表
         // productColor:"",
         productSize:"",
         seller:'',//商户信息
-        userIsCollectSeller:false,
-        sellerCollectNum:"",
-        productNum:123
+        userIsCollectSeller:false,//用户是否关注了该商户
+        sellerCollectNum:"",//商户关注度
+        productNum:123,
+        //商品检索条件
+        condition:{
+          sellerId: "",//商户ID
+          categoryId: "",//分类ID
+          sizeId:"",//商品尺寸ID
+          type:"",//排序类型
+          hasNum:0,//是否还是库存
+        },
+        categoryIdFlag:false,//是否检索商品分类
+        sizeIdFlag:false,//是否检商品尺寸
+        typeFlag:false,//是否排序
+        hasNumFlag:false,//是否查看有库存的商品
       }
     },
     methods:{
@@ -127,6 +138,22 @@
           },
         })
       },
+      searchProductByCategoryId:function(categoryId){
+        this.condition.categoryId = categoryId;
+        this.categoryIdFlag = !this.categoryIdFlag;
+        this.getProductList(1);
+      },
+      searchProductBySizeId:function(sizeId){
+        this.condition.sellerId = sizeId;
+        this.sizeIdFlag = !this.sizeIdFlag;
+      },
+      searchProductByType:function(type){
+        this.condition.type = type;
+      },
+      searchProductByIsHasNum:function(){
+        this.condition.hasNum = 1;
+      },
+
       //根据商户类型加载商户所有商品的二级分类
       getSecondaryList:function(type,sellerId){
         let url = "/apis/product/findCategoryBySellerId/"+sellerId;
@@ -153,7 +180,7 @@
         );
         return categoryIdList;
       },
-      getProductCountBySecoundaryCategory:function(categoryIdList){
+      /*getProductCountBySecoundaryCategory:function(categoryIdList){
         fetch("/apis/product/getProductCountBySecoundaryCategory",{
           method:"post",
           headers:{
@@ -168,7 +195,7 @@
               alert(data["msg"]);
             }
           })
-      },
+      },*/
       //根据商户类型加载商户所有商品的商品尺寸
       getProductSizeList:function (type) {
         let url = "/apis/product/findAllProductSizeByPrimaryCategoryId/"+type;
@@ -184,11 +211,23 @@
             }
           })
       },
-      //根据商家ID加载商品数据
-      getProductList:function(seller_id){
-        let url = "/apis/product/findProductBySellerId/"+seller_id;
+      //分页检索商品 pageNum:当前页数
+      getProductList:function(pageNum){
+        //每页记录数
+        let pageCount = 50;
+        let url = "/apis/product/listProductInSellerByCondition/" + pageNum + "/" + pageCount;
         fetch(url,{
-          method:'get',
+          method:'post',
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+              "sellerId" : this.condition.sellerId ,
+              "categoryId" : this.condition.categoryId,
+              "productSizeId" : this.condition.sizeId,
+              "type" : this.condition.type,
+              "hasNum" : this.condition.hasNum
+          })
         }) .then(result =>{
             return result.json()
           }).then(data =>{
@@ -220,7 +259,7 @@
       },
       //查询用户是否收藏了商户
       selectUserCollectSeller:function (sellerId) {
-        fetch("/apis/user/selectUserCollectSeller/"+sellerId+"/"+this.$store.getters.getUser.user_id,{
+        fetch("/apis/user/findUserCollectSeller/"+sellerId+"/"+this.$store.getters.getUser.id,{
           method:"get"
         }).then(result => result.json())
           .then(data =>{
@@ -259,8 +298,8 @@
             "Content-type":"application/json"
           },
           body:JSON.stringify({
-            "user_id":this.$store.getters.getUser.user_id,
-            "seller_id":this.$route.query.seller_id
+            "userId":this.$store.getters.getUser.id,
+            "sellerId":this.$route.query.seller_id
           })
         }).then(Result => Result.json())
           .then(data =>{
@@ -269,13 +308,14 @@
               this.sellerCollectNum ++;
             }
           })
-      }
+      },
     },
     created(){
+      this.condition.sellerId = this.$route.query.seller_id;
       //查询商户信息
       this.getSeller(this.$route.query.seller_id);
       //查询商品列表
-      this.getProductList(this.$route.query.seller_id);
+      this.getProductList(1);
       if (this.$store.getters.getUserState === "true"){
         //查询用户是否收藏了该商户
         this.selectUserCollectSeller(this.$route.query.seller_id);
@@ -332,7 +372,7 @@
   .menu_fenLei>ul{
     width: 730px;
     float: right;
-    margin-right: 130px;
+    margin-right: 150px;
     overflow: hidden;
   }
   .menu_fenLei>ul>li{
@@ -356,7 +396,7 @@
   .menu_size>ul{
     width: 730px;
     float: right;
-    margin-right: 130px;
+    margin-right: 150px;
     overflow: hidden;
   }
   .menu_size>ul>li{

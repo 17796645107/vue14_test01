@@ -1,17 +1,24 @@
 <template>
   <nav v-bind:class="{main_nav:true,mainNav_fixed:this.topNavFixed}" id="main_nav">
     <ul>
-      <li class="category">
+      <li class="category" @mouseover="primaryCategoryShow = !primaryCategoryShow" @mouseout="primaryCategoryShow = false">
         <i></i>商品分类
+        <!--一级菜单-->
         <div class="primaryCategory">
-          <ul>
-            <li v-for="nav in navList" @mouseover="getSecondaryCategory(nav.id)">{{nav.categoryName}}</li>
-            <div class="secondaryCategory">
-              <a href="javascript:;" v-for="category in secondaryCategory" @click="goCategoryMenu(category.id)">
-                {{category.categoryName}}
-              </a>
-            </div>
-          </ul>
+          <el-collapse-transition>
+            <ul v-show="primaryCategoryShow">
+              <li class="transition-box" v-for="nav in navList"
+                  @mouseover="getSecondaryCategory(nav.id)" @mouseout="secondaryCategoryShow = false">
+                {{nav.categoryName}}
+              </li>
+            </ul>
+          </el-collapse-transition>
+        </div>
+        <!--二级菜单-->
+        <div class="secondaryCategory" v-show="secondaryCategoryShow">
+          <a href="javascript:;" v-for="category in secondaryCategory" @click="goCategoryMenu(category.id)">
+            {{category.categoryName}}
+          </a>
         </div>
       </li>
       <li>
@@ -30,23 +37,47 @@
 <script>
     export default {
       name: "IndexHeadNav",
-      /*props:{
-        navList:{
-
-          default:function (){
-              return JSON.parse(sessionStorage.getItem("navList"));
-          }
-        }
-      },*/
       data(){
         return{
-          navList:"",
+          // 导航分类
+          navList:[
+            {id:1,categoryName:"AAA"},
+            {id:2,categoryName:"AAA"},
+            {id:3,categoryName:"AAA"},
+            {id:4,categoryName:"AAA"},
+            {id:5,categoryName:"AAA"},
+            {id:1,categoryName:"AAA"},
+            {id:1,categoryName:"AAA"},
+            {id:1,categoryName:"AAA"},
+            {id:1,categoryName:"AAA"},
+          ],
+          // 一级菜单淡入淡出控制
+          primaryCategoryShow:false,
+          // 二级菜单显示控制
+          secondaryCategoryShow:false,
+          // 导航固定头部控制
           topNavFixed:false,
-          secondaryCategory:"",
+          // 二级导航
+          secondaryCategory:[
+            {id:1,categoryName:"A"},
+            {id:2,categoryName:"AAaA"},
+            {id:3,categoryName:"AAsA"},
+            {id:4,categoryName:"AhAA"},
+            {id:5,categoryName:"AtfAA"},
+            {id:1,categoryName:"AAA"},
+            {id:1,categoryName:"AAgA"},
+            {id:1,categoryName:"AArA"},
+            {id:1,categoryName:"AAeA"},
+          ],
         }
       },
       methods:{
         getNavList:function () {
+          //查询sessionStorage中是否存在导航信息
+          if (sessionStorage.getItem("navList") != null){
+            this.navList = JSON.parse(sessionStorage.getItem("navList"));
+            return;
+          }
           fetch("/apis/product/findCategoryByParentId/0",{
             method:'get',
           }).then(result =>{
@@ -97,6 +128,8 @@
                 }
               })
           }
+          //显示二级菜单
+          this.secondaryCategoryShow = true;
         },
       },
       created(){
@@ -104,10 +137,8 @@
         window.addEventListener('scroll',()=>{
           if(window.pageYOffset>1860){
             this.topNavFixed = true;
-          }else if(window.pageYOffset<1860 && window.pageYOffset>130){
-            this.topNavFixed = true;
           }else{
-            this.topNavFixed = false;
+            this.topNavFixed = window.pageYOffset < 1860 && window.pageYOffset > 130;
           }
         });
         //获取导航列表
@@ -161,6 +192,7 @@
     background: blue;
     font-size: 14px;
     color: white;
+    cursor: pointer;
   }
   .category > i{
     display: inline-block;
@@ -170,12 +202,8 @@
     vertical-align: middle;
     margin-right: 5px;
   }
-  .category:hover .primaryCategory{
-    visibility: visible;
-  }
   .primaryCategory{
     width: 140px;
-    visibility: hidden;
     z-index: 999;
     background: blue;
     position: absolute;
@@ -202,9 +230,10 @@
     width: 400px;
     height: 405px;
     position: absolute;
-    left: 140px;
+    left: 315px;
     background: white;
     font-size: 12px;
+    z-index: 998;
   }
   .secondaryCategory>a{
     display: inline-block;

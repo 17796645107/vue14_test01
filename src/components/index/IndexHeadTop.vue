@@ -47,8 +47,8 @@
           <div class="login_hidden">
             <div class="login_msg">
               <div class="login_icon">
-                <img :src="'../../../static/user/headIcon/'+User.headImage" v-if="User.headImage !== ''"/>
-                <img src="../../assets/user/avatar_89373029_1496285287409.jpg" v-if="User.headImage === ''"/>
+                <img :src="'../../../static/user/headIcon/'+User.headImage"/>
+                <!--<img src="../../assets/user/avatar_89373029_1496285287409.jpg" v-if="User.headImage === ''"/>-->
               </div>
               <a href="/user/index">{{User.nickname}}</a>
               <a href="javascript:;" class="logout" @click="Logout">[退出]</a>
@@ -154,27 +154,26 @@
       name: "IndexHeadTop",
       data(){
         return{
-          User:{
-            user_id: '',
-            nickname:"aaa",
-          },
+          User:'',
           UserState:false,
         }
       },
       methods:{
         //用户注销
         Logout:function () {
-          this.$store.commit('userLogout');
           fetch("/apis/user/logout",{
-            method:"post",
+            method:'get',
           }).then(result =>{
             return result.json()
           }).then(data =>{
-            if (data["code"] !== 200){
+            if (data["code"] === 200){
+              this.$store.commit('userLogout');
+              //刷新界面
+              window.location.reload();
+            }else{
               alert(data["msg"]);
-            }});
-          //刷新界面
-          window.location.reload();
+            }
+          });
         }
       },
       mounted(){
@@ -185,7 +184,6 @@
           this.User = this.$store.getters.getUser;
         }
       },
-
     }
 </script>
 
@@ -393,7 +391,7 @@
     visibility: hidden;
     background: white;
     border: 1px solid #CDCDCD;
-    z-index: 1;
+    z-index: 999;
   }
   .phone_hidden>img{
     width: 165px;

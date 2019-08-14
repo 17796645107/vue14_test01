@@ -91,25 +91,11 @@
         </div>
 
         <div class="seller_warp">
-          <div class="seller">
-            <img src="../../assets/seller/seller/ias_155780125680915_570x273_90.jpg" alt="">
-            <span>收藏品牌</span>
-            <div class="seller_title">
-              <span></span><span>每周二特惠专场-斯尔丽&瑟俪SIERLI.COLLECTION女装专场</span><span></span>
-            </div>
-          </div>
-          <div class="seller">
-            <img src="../../assets/seller/seller/ias_155780125680915_570x273_90.jpg" alt="">
-            <span>收藏品牌</span>
-            <div class="seller_title">
-              <span></span><span>每周二特惠专场-斯尔丽&瑟俪SIERLI.COLLECTION女装专场</span><span></span>
-            </div>
-          </div>
-          <div class="seller">
-            <img src="../../assets/seller/seller/ias_155780125680915_570x273_90.jpg" alt="">
+          <div class="seller" v-for="seller in sellerList">
+            <img :src="'../../../static/seller/seller/'+ seller.showImage" class="sellerImage" @click="goProductMenu(seller.id)">
             <span class="seller_collect">收藏品牌</span>
             <div class="seller_title">
-              <span class="seller_name">每周二特惠专场-斯尔丽&瑟俪SIERLI.COLLECTION女装专场</span>
+              <span class="seller_name">{{seller.name}}</span>
               <span class="discount">
                 <b>3</b>折起
               </span>
@@ -119,14 +105,6 @@
         </div>
       </div>
     </div>
-    <el-button type="success">成功按钮</el-button>
-
-
-    <el-button type="warning">警告按钮</el-button>
-
-    <el-button type="danger">危险按钮</el-button>
-
-    <el-button type="info">信息按钮</el-button>
 
     <IndexFoot></IndexFoot>
   </div>
@@ -145,6 +123,40 @@
         IndexHeadNav,
         IndexFoot,
       },
+      data(){
+        return{
+          sellerList:"",
+        }
+      },
+      methods:{
+        listSellerByCategoryId:function (categoryId) {
+          fetch("/apis/seller/getSellerByType/"+categoryId,{
+              method:'get'
+          }).then(result => result.json())
+          .then(data =>{
+              if(data["code"] === 200){
+                this.sellerList = data["data"];
+              }else{
+                  alert(data["msg"]);
+              }
+          })
+        },
+        goProductMenu:function (sellerId) {
+          this.$router.push({
+            path:'/product/productMenu',
+            query:{
+              "seller_id":sellerId
+            },
+          })
+        },
+      },
+      computed: {
+
+      },
+      created(){
+        let categoryId = this.$route.query.categoryId;
+        this.listSellerByCategoryId(categoryId);
+      }
     }
 </script>
 
@@ -225,8 +237,7 @@
     width: 100%;
   }
   .seller_title{
-    width: 1000px;
-    margin: 0 auto;
+    width: 100%;
   }
   .seller_title>img{
     width: 100%;
@@ -244,6 +255,9 @@
   .seller>img{
     width: 100%;
     height: 235px;
+  }
+  .sellerImage{
+    cursor: pointer;
   }
   .seller:nth-child(2n-1){
     margin: 0 20px 20px 0;

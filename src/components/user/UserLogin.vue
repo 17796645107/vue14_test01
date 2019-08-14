@@ -20,7 +20,7 @@
             </div>
             <div class="login_form">
               <div class="username">
-                <i></i><input type="text" v-model="telephone" @click="showUsernameList" @blur="hiddenUsernameList" placeholder="手机号" required="required"/>
+                <i class="el-icon-user"></i><input type="text" v-model="telephone" @click="showUsernameList" @blur="hiddenUsernameList" placeholder="手机号" required="required"/>
                 <div v-bind:class="{usernameList:true,usernameListHidden:usernameListShow}">
                   <ul>
                     <li v-for="user in UsernameCookie" @mouseover="fillUsername(user)">
@@ -30,7 +30,7 @@
                 </div>
               </div>
               <div class="password">
-                <i></i><input type="password" v-model="password" placeholder="密码" required="required" @keyup.enter="userLogin"/>
+                <i class="el-icon-unlock"></i><input type="password" v-model="password" placeholder="密码" required="required" @keyup.enter="userLogin"/>
               </div>
               <div class="group">
                 <div class="remember_username">
@@ -232,19 +232,27 @@ export default {
     margin: 0 auto;
   }
   .username,.password{
-    width: 300px;
-    height: 45px;
+    width: 290px;
+    height: 35px;
     border: rgb(178,178,178) solid 1px;
     border-radius: 3px;
     margin-bottom: 20px;
+    padding: 5px;
   }
   .username>input,.password>input{
-    margin:7px 40px;
     width: 220px;
     height: 32px;
     line-height: 32px;
     border: 0;
     font-size: 14px;
+  }
+  .username > i,.password > i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+    padding-right: 10px;
   }
   .usernameList{
     width: 300px;

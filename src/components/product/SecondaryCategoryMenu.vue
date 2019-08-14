@@ -58,11 +58,11 @@
         </div>
         <div class="product_list" id="product_list">
           <div class="product" v-for="product in productList">
-            <a href="javascript:;" @click="goProductDetail(product.default_image.product_id)" class="product_image">
+            <a href="javascript:;" @click="goProductDetail(product.defaultImage.productId)" class="product_image">
               <!--动态拼接src-->
               <!--单引号包裹的是常量，+号后跟的是变量，拼接起来用双引号包裹   -->
               <!--:src    Vue标签-->
-              <img :src="'../../../static/product/'+product.default_image.image" />
+              <img :src="'../../../static/product/'+product.defaultImage.image" />
             </a>
             <div class="price">
               <span>￥{{Math.ceil(product.price*0.7)}}</span><!--打折后的价格，向上取整-->

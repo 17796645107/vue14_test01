@@ -3,24 +3,15 @@
     <IndexHeadTop></IndexHeadTop>
     <IndexHeadSearch></IndexHeadSearch>
     <IndexHeadNav></IndexHeadNav>
-    <!--<IndexHeadNav v-bind:navList="navList.nav"></IndexHeadNav>-->
 
     <!--轮播图-->
     <div class="banner">
       <div class="banner_main">
-        <ul>
-          <li><img src="../../assets/index/banner1.jpg"></li>
-          <li></li>
-        </ul>
-        <span class="banner_float_btn"><i></i></span>
-        <span class="banner_float_btn"><i></i></span>
-
-        <div class="banner_switch_btn">
-          <ul>
-            <li>家居家紡 最高滿199減100</li>
-            <li>潮玩滑板鞋 低至2折</li>
-          </ul>
-        </div>
+        <el-carousel interval="6000" height="360px">
+          <el-carousel-item v-for="item in bannerImageList" :key="item" >
+            <img :src = "'../../../static/index/'+ item" class="bannerImage">
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </div>
 
@@ -157,17 +148,15 @@
       <div v-bind:class="{mainLeft_nav:true,mainLeft_nav_fixed:leftNavFixed}" id="mainLeft_nav" >
         <ul>
           <li>
-            <a href="#jingxuan">
-              <i></i>精选
-            </a>
+            <a href="#jingxuan"><i></i>精选</a>
           </li>
           <li>
-            <a href="#huodong">
-              <i></i>活动
-            </a>
+            <a href="#huodong"><i></i>活动</a>
           </li>
-          <li v-for="nav in navList.nav">
-            <a href="javascript:;">
+          <li v-for="(nav,index) in navList.nav" v-bind:class="{bg:index === current}"
+              v-on:click="addClassColor(index)">
+            <a href="javascript:;" :class="{color:index === current,colorChange:index !== current}"
+              @mouseover="colorRed(index)">
               <i></i>{{nav.categoryName}}
             </a>
           </li>
@@ -181,13 +170,11 @@
           <!--精选-->
           <a name="jingxuan" class="h1">精选</a>
         </div>
-
         <div class="main_product">
           <a name="huodong" class="h1">活动</a>
         </div>
-
         <div class="main_product">
-          <a name="nvzhuang" class="h1">{{navList.nav[0].categoryName}}</a>
+          <a name="one" class="h1">{{navList.nav[0].categoryName}}</a>
           <div class="product" v-for="seller in oneSellers">
             <a href="javascript:;" @click="goProductMenu(seller.id)" class="seller_go">
               <img class="test" :src="'../../static/seller/seller/'+seller.showImage" />
@@ -197,7 +184,7 @@
         </div>
 
         <div class="main_product">
-          <a name="nvzhuang" class="h1">{{navList.nav[1].categoryName}}</a>
+          <a name="two" class="h1">{{navList.nav[1].categoryName}}</a>
           <div class="product" v-for="seller in twoSellers">
             <a href="javascript:;" @click="goProductMenu(seller.id)" class="seller_go">
               <img class="test" :src="'../../static/seller/seller/'+seller.showImage" />
@@ -222,27 +209,44 @@
     name: "Index",
     data(){
       return{
+        bannerImageList:[
+          "banner1.jpg",
+          "banner2.jpg",
+        ],
         leftNavFixed:false,
         navList:{
           //导航列表
-          nav:"",
+          nav:[
+            {categoryName:"衣服"},
+            {categoryName:"裤子"},
+            {categoryName:"衣服"},
+            {categoryName:"裤子"},
+            {categoryName:"衣服"},
+          ],
           //锚点列表
-          // navName:[
-          //   {name:"nvzhuang"},
-          //   {name:"nanzhuang"},
-          //   {name:"neiyi"},
-          //   {name:"nvxie"},
-          //   {name:"nanxie"},
-          //   {name:"xiangbao"},
-          //   {name:"yundong"},
-          //   {name:"tongzhuang"}
-          // ],
+          navName:[
+            {name:"nvzhuang"},
+            {name:"nanzhuang"},
+            {name:"neiyi"},
+            {name:"nvxie"},
+            {name:"nanxie"},
+            {name:"xiangbao"},
+            {name:"yundong"},
+            {name:"tongzhuang"}
+          ],
         },
         oneSellers:'',
         twoSellers:"",
+        current:1,
       }
     },
     methods:{
+      addClassColor:function(index){
+        this.current = index;
+      },
+      colorRed:function(index){
+
+      },
       goProductMenu:function (sellerId) {
         this.$router.push({
           path:'/product/productMenu',
@@ -252,6 +256,11 @@
         })
       },
       getNavList:function () {
+        //查询sessionStorage中是否存在导航信息
+        if (sessionStorage.getItem("navList") != null){
+          this.navList.nav = JSON.parse(sessionStorage.getItem("navList"));
+          return;
+        }
         fetch("/apis/product/findCategoryByParentId/0",{
           method:'get',
         }).then(result =>{
@@ -336,9 +345,9 @@
       this.getTypeTwoSeller();
       //导航栏固定左侧效果
       window.addEventListener('scroll',()=>{
-        if(window.pageYOffset>1860){
+        if(window.pageYOffset > 1000){
           this.leftNavFixed = true;
-        }else if(window.pageYOffset<1860 && window.pageYOffset>130){
+        }else if(window.pageYOffset < 1000 && window.pageYOffset > 130){
           this.leftNavFixed = false;
         }
       });
@@ -362,49 +371,15 @@
   }
   .banner_main{
     width: 976px;
-    height: 368px;
+    height: 360px;
     margin: 0 auto;
     padding: 12px;
     background: rgba(255,255,255,.86);
     box-shadow: 0 1px 3px rgba(167,167,167,.4);
   }
-  .banner_main>ul{
+  .bannerImage{
     width: 100%;
-    height: 340px;
-  }
-  .banner_main>ul>li{
-    height: 340px;
-  }
-  .banner_main>ul>li>img{
-    width: 100%;
-    height: 340px;
-  }
-  .banner_switch_btn{
-    width: 100%;
-    height: 40px;
-  }
-  .banner_switch_btn>ul{
-    width: 391px;
     height: 100%;
-    margin: 0 auto;
-  }
-  .banner_switch_btn li{
-    width: 195px;
-    height: 40px;
-    line-height: 40px;
-    color: #666;
-    font-size: 13px;
-    text-align: center;
-    border-bottom: rgb(230,5,125) 3px solid;
-  }
-  .banner_switch_btn li:nth-child(1):after{
-    content: "|";
-    /*font-family: tohama;*/
-    font-size: 10px;
-    margin-left: 25px;
-    color: #e8e8e8;
-    position: relative;
-    right: 0;
   }
   /*广告*/
   .ad{
@@ -524,13 +499,14 @@
   /* 左侧导航栏*/
   .mainLeft_nav{
     width: 78px;
-    /*height: 390px;*/
-    margin: 70px auto;
-    left: 50px;
+    margin: 120px auto;
+    left: 60px;
     position: absolute;
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
   }
   .mainLeft_nav_fixed{
-    left: 50px;
+    left: 60px;
     top: 0;
     position: fixed;
   }
@@ -552,33 +528,39 @@
   }
   .mainLeft_nav>ul{
     width: 76px;
-    height: 100%;
-    border: 1px solid rgb(214,214,214);
-    border-radius: 5px;
+    padding: 5px 0;
+    overflow: hidden;
   }
   .mainLeft_nav>ul>li{
     width: 66px;
     height: 33px;
     line-height: 33px;
     text-align: center;
-    border-bottom:1px rgb(234,234,234) solid;
     margin: 5px 5px 0 5px;
+    border-radius: 5px;
   }
-  .mainLeft_nav>ul>li:nth-child(1){
-    background: rgb(241,1,128);
+  .mainLeft_nav>ul>li:last-child{
+    border-bottom:0;
   }
-  .mainLeft_nav>ul>li:nth-child(1)>a{
-    color: white;
-  }
-  .mainLeft_nav li>a{
-    width: 100%;
+  .mainLeft_nav li > a{
+    width: 90%;
+    margin: 0 auto;
     height: 100%;
     display: block;
     font-size: 12px;
-    color: #666666;
+    border-bottom:1px rgb(234,234,234) solid;
   }
-  .mainLeft_nav li>a:hover{
-    color: rgb(241,1,128);
+  /*.mainLeft_nav li>a:hover{
+    color: #f10180;
+  }*/
+  .bg{
+    background-color: #f10180;
+  }
+  .color{
+    color: white;
+  }
+  .colorChange{
+    color: #666666;
   }
   .aName{
     width: 66px;

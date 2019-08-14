@@ -119,11 +119,11 @@
         }
       },
       mounted(){
-        if (this.$store.getters.getUserState === "true"){
+        /*if (this.$store.getters.getUserState === "true"){
           this.getOrderPageByUserID(this.$store.getters.getUser.id,1);
         } else {
           this.$router.push("/user/login");
-        }
+        }*/
       }
     }
 </script>
