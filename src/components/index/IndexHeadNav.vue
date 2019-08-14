@@ -152,7 +152,6 @@
     width: 100%;
     min-width: 1000px;
     height: 40px;
-    background-color: #f10180;
   }
   .main_nav>ul{
     width: 1000px;
@@ -165,21 +164,22 @@
     height: 100%;
     text-align: center;
   }
-  .main_nav>ul>li :hover{
-    color: #333333;
-    /*background-color: rgba(241,1,128,.5);*/
+  .main_nav>ul>li>a{
+    color:black;
+    font-size: 15px;
+  }
+  .main_nav>ul>li>a :hover{
+    color: #f10180;
   }
   .main_nav .super{
-    width: 120px;
+    width: 100px;
   }
-  .super>img{
+  .super > img{
     vertical-align: middle;
+    padding-right: 2px;
+    margin-top: -6px;
   }
-  .main_nav>ul>li>a{
-    color:#fff;
-    font-size: 14px;
-    font-weight: 600;
-  }
+
   /*导航栏固定顶部效果*/
   .mainNav_fixed{
     top: 0;
@@ -189,7 +189,7 @@
   .main_nav .category{
     width: 140px;
     height: 100%;
-    background: blue;
+    background: #f10180;
     font-size: 14px;
     color: white;
     cursor: pointer;
@@ -205,7 +205,7 @@
   .primaryCategory{
     width: 140px;
     z-index: 999;
-    background: blue;
+    background: #f10180;
     position: absolute;
   }
   .primaryCategory>ul{
@@ -220,7 +220,7 @@
   }
   .primaryCategory>ul>li:hover{
     background: white;
-    color: blue;
+    color: #f10180;
   }
   .primaryCategory>ul>li:hover .secondaryCategory{
     visibility: visible;
