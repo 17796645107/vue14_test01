@@ -7,7 +7,7 @@
     <!--轮播图-->
     <div class="banner">
       <div class="banner_main">
-        <el-carousel interval="6000" height="360px">
+        <el-carousel :interval="6000" height="360px">
           <el-carousel-item v-for="item in bannerImageList" :key="item" >
             <img :src = "'../../../static/index/'+ item" class="bannerImage">
           </el-carousel-item>

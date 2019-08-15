@@ -234,6 +234,7 @@
     height: 100%;
   }
   .top_nav_list>ul>li{
+    height: 100%;
     text-align: center;
   }
   .nav_list_login{
@@ -254,6 +255,8 @@
     background: white;
     position:absolute;
     visibility: hidden;
+    z-index: 999;
+
   }
   .login_msg{
     width: 220px;
@@ -293,6 +296,7 @@
   .nav_list_sign{
     width: 95px;
     height: 100%;
+    display: block;
   }
   /*.nav_list_sign:hover .sign_hidden{
     visibility: visible;
@@ -308,9 +312,12 @@
   }*/
   .nav_list_sign>i{
     width: 15px;
-    height: 18px;
+    height: 28px;
     display: inline-block;
-    background: url(../../assets/index/gift.gif);
+    margin-right: 3px;
+    background: url(../../assets/index/gift.gif)no-repeat center;
+    vertical-align: middle;
+    margin-top: -6px;
   }
   .nav_list_order{
     width: 83px;
@@ -328,6 +335,7 @@
     visibility: hidden;
     background: white;
     border: 1px solid #CDCDCD;
+    z-index: 999;
   }
   .sale_hidden a{
     display: block;
@@ -348,6 +356,7 @@
     visibility: hidden;
     background: white;
     border: 1px solid #CDCDCD;
+    z-index: 999;
   }
   .vip_hidden>ul{
     width: 67px;
@@ -369,6 +378,7 @@
     visibility: hidden;
     background: white;
     border: 1px solid #CDCDCD;
+    z-index: 999;
   }
   .service_hidden>ul{
     width: 80px;
@@ -402,6 +412,8 @@
     height: 14px;
     display: inline-block;
     background: url(../../assets/index/resource1.png)-294px -142px;
+    vertical-align: middle;
+    margin-right: 3px;
   }
   .nav_list_more{
     width: 71px;
@@ -417,7 +429,7 @@
     visibility: hidden;
     background: white;
     border: 1px solid #CDCDCD;
-    z-index: 1;
+    z-index: 999;
   }
   .more_hidden li{
     margin-right: 10px;

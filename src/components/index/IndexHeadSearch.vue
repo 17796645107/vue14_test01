@@ -311,7 +311,7 @@
     border: rgb(250,42,131) 1px solid;
     border-top: 0;
     background: white;
-    z-index: 1;
+    z-index: 997;
     overflow: hidden;
   }
   .search_title{
