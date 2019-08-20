@@ -187,14 +187,14 @@
           event.preventDefault();
           let formData = new FormData();
           formData.append("file", this.file);
-          formData.append("userId", this.user.user_id);
+          formData.append("userId", this.user.id);
           fetch("/apis/user/uploadUserHeadImage",{
             method:"post",
             body:formData
           }).then(result =>result.json()
           ).then(data =>{
             if (data["code"] === 200){
-              this.getUserDetail();
+              this.getUserDetail(this.user.id);
               alert("用户头像上传成功");
             } else{
               alert("用户头像上传失败");

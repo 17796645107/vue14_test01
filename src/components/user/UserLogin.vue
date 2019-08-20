@@ -104,7 +104,18 @@ export default {
     hiddenUsernameList:function(){
       this.usernameListShow = true;
     },
+
+      //判断字符串是否为空
+      emptyString:function(str){
+        return (str === "" || str.trim().length === 0);
+      },
+
     userLogin:function () {
+        //检查用户名或密码是否为空
+        if (this.emptyString(this.telephone) && this.emptyString(this.password)){
+            alert("请输入用户名或密码");
+            return ;
+        }
       this.loginText = "登录中...";
       //发送登录请求
       fetch("/apis/user/login",
@@ -136,6 +147,7 @@ export default {
           }
         })
       },
+      //记住密码
       setUserToCookie:function () {
         let users = JSON.parse(this.$cookies.get("users"));
         let userMap = new Map();

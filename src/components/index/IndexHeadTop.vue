@@ -208,7 +208,8 @@
     color:#F10180;
   }
   .now_address{
-    width: 86px;
+    width: 87px;
+    height: 100%;
     float: left;
     color: #333;
   }
@@ -217,6 +218,7 @@
     border: 1px solid #ccc;;
     background: red;
     /*margin-top: 28px;*/
+    visibility: hidden;
     z-index: 2;
   }
   .now_address>span{
@@ -238,8 +240,7 @@
     text-align: center;
   }
   .nav_list_login{
-    width: 73px;
-    z-index: 10;
+     z-index: 10;
   }
 /*  .user_show{
     width: 73px;

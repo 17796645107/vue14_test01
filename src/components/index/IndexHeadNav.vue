@@ -256,7 +256,8 @@
     <ul>
       <li class="category">
         <i></i>商品分类
-        <div class="primaryCategory">
+        <el-collapse-transition>
+          <div class="primaryCategory">
           <ul>
             <li v-for="nav in navList" @mouseover="getSecondaryCategory(nav.id)">{{nav.categoryName}}</li>
             <div class="secondaryCategory">
@@ -266,6 +267,7 @@
             </div>
           </ul>
         </div>
+        </el-collapse-transition>
       </li>
       <li>
         <a href="/index">首页</a>
@@ -283,14 +285,6 @@
 <script>
     export default {
         name: "IndexHeadNav",
-        /*props:{
-          navList:{
-
-            default:function (){
-                return JSON.parse(sessionStorage.getItem("navList"));
-            }
-          }
-        },*/
         data(){
             return{
                 navList:[
@@ -384,7 +378,8 @@
     width: 100%;
     min-width: 1000px;
     height: 40px;
-    background-color: #f10180;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #a7a7a7;
   }
   .main_nav>ul{
     width: 1000px;
@@ -397,20 +392,20 @@
     height: 100%;
     text-align: center;
   }
-  .main_nav>ul>li :hover{
-    color: #333333;
-    /*background-color: rgba(241,1,128,.5);*/
+  .main_nav>ul>li>a{
+    color:black;
+    font-size: 15px;
+  }
+  .main_nav>ul>li>a:hover{
+    color: #f10180;
   }
   .main_nav .super{
     width: 120px;
   }
   .super>img{
     vertical-align: middle;
-  }
-  .main_nav>ul>li>a{
-    color:#fff;
-    font-size: 14px;
-    font-weight: 600;
+    padding-right: 2px;
+    margin-top: -6px;
   }
   /*导航栏固定顶部效果*/
   .mainNav_fixed{
@@ -421,9 +416,10 @@
   .main_nav .category{
     width: 140px;
     height: 100%;
-    background: blue;
+    background: #f10180;
     font-size: 14px;
     color: white;
+    cursor: pointer;
   }
   .category > i{
     display: inline-block;
@@ -440,7 +436,7 @@
     width: 140px;
     visibility: hidden;
     z-index: 999;
-    background: blue;
+    background: #f10180;
     position: absolute;
   }
   .primaryCategory>ul{
@@ -455,7 +451,7 @@
   }
   .primaryCategory>ul>li:hover{
     background: white;
-    color: blue;
+    color: #f10180;
   }
   .primaryCategory>ul>li:hover .secondaryCategory{
     visibility: visible;
