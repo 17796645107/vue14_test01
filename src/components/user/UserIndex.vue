@@ -3,8 +3,8 @@
     <!--头部-->
     <IndexHeadTop></IndexHeadTop>
     <IndexHeadSearch></IndexHeadSearch>
-    <IndexHeadNav></IndexHeadNav>
-
+<!--    <IndexHeadNav></IndexHeadNav>-->
+    <UserTopNav></UserTopNav>
     <!--页面主体 -->
     <div class="body">
       <div class="user_warp">
@@ -63,7 +63,7 @@
           </div>
           <div class="user_message_bottom"></div>
           <div class="user_order">
-            <div class="order_title">
+            <!--<div class="order_title">
               <ul>
                 <li>
                   <a href="">全部订单</a>
@@ -76,23 +76,40 @@
                 </li>
               </ul>
             </div>
-            <div class="order_main">
-              <table>
-                <tr v-for="order in orderList.list">
-                  <td ><img :src="'../../../static/product/'+order.goodCartList[0].product.defaultImage.image"> </td>
-                  <td>
-                    <p>订单号:{{order.id}}</p>
-                    <p>{{order.created}}</p>
-                  </td>
-                  <td>¥{{order.productTotal}}</td>
-                  <td>订单已取消</td>
-                  <td><a href="">查看详情</a></td>
-                </tr>
-              </table>
-              <div class="all_order" v-show="orderList.total > 3">
-                <a href="/order/orderControl">查看所有订单</a>
-              </div>
-            </div>
+            -->
+            <el-tabs v-model="el_tab_select">
+              <el-tab-pane label="全部订单" name="first">
+                <div class="order_main">
+                  <table v-show="orderList.list > 0">
+                    <tr v-for="order in orderList.list">
+                      <td ><img :src="'../../../static/product/'+order.goodCartList[0].product.defaultImage.image"> </td>
+                      <td>
+                        <p>订单号:{{order.id}}</p>
+                        <p>{{order.created}}</p>
+                      </td>
+                      <td>¥{{order.productTotal}}</td>
+                      <td>订单已取消</td>
+                      <td><a href="">查看详情</a></td>
+                    </tr>
+                  </table>
+                  <div class="orderNone_hidden" v-show="!orderList.list > 0">
+                    <div class="order_hidden_img"></div>
+                    <p>
+                      当前没有订单哦，先去 <a href="">抢购</a>吧~
+                    </p>
+                  </div>
+                  <div class="all_order" v-show="orderList.total > 3">
+                    <a href="/order/orderControl">查看所有订单</a>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="待支付" name="second">
+                <div class="order_main"></div>
+              </el-tab-pane>
+              <el-tab-pane label="待收货" name="third">
+                <div class="order_main"></div>
+              </el-tab-pane>
+            </el-tabs>
           </div>
           <div class="user_collect">
             <div class="collect_title">
@@ -129,13 +146,15 @@
   import IndexHeadNav from "../index/IndexHeadNav"
   import IndexFoot from "../index/IndexFoot"
   import UserNav from "../user/UserNav"
+  import UserTopNav from "./UserTopNav";
 
   export default {
     name: "UserIndex",
     data(){
       return{
-        user:"",
-        orderList:"",
+          user:"",
+          orderList:"",
+          el_tab_select:"first",
       }
     },
     methods:{
@@ -164,11 +183,12 @@
       }
     },
     components:{
-      IndexHeadTop,
-      IndexHeadSearch,
-      IndexHeadNav,
-      IndexFoot,
-      UserNav,
+        IndexHeadTop,
+        IndexHeadSearch,
+        IndexHeadNav,
+        IndexFoot,
+        UserNav,
+        UserTopNav,
     }
   }
 </script>
@@ -336,9 +356,10 @@
     background: url(../../assets/user/userInfotop_bg_new.png)repeat-x;
   }
   .user_order{
-    width: 820px;
-    margin-top: 50px;
+    width: 800px;
+    margin-top: 20px;
     background: white;
+    padding: 0 10px;
   }
   .order_title,.collect_title{
     width: 820px;
@@ -367,6 +388,7 @@
   }
   .order_main{
     width: 100%;
+    min-height: 200px;
   }
   .order_main>table{
     width: 100%;
@@ -378,6 +400,16 @@
   .order_main>table>tr img{
     width: 67px;
     height: 67px;
+  }
+  .orderNone_hidden{
+    padding-top: 50px;
+    text-align: center;
+  }
+  .order_hidden_img{
+    width: 100px;
+    margin: 0 auto;
+    height: 100px;
+    background: url("../../assets/user/index-img.png")no-repeat scroll -179px -70px;
   }
   .all_order{
     width: 100%;
