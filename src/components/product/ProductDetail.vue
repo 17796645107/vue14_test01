@@ -127,6 +127,10 @@
             }
         },
         methods: {
+            /**
+             *
+             * @param count
+             */
             getCartCount: function (count) {
                 this.cartNumber = count;
             },

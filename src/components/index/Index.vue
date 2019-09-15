@@ -201,24 +201,31 @@
         name: "Index",
         data() {
             return {
+                //轮播图列表
                 bannerImageList: [
                     "banner1.jpg",
                     "banner2.jpg",
                 ],
+                //左侧导航栏固定控制
                 leftNavFixed: false,
-                //锚点列表
-                navList:"",
+                //导航列表
+                navList:[
+                    {"categoryName":"精选"},
+                    {"categoryName":"活动"},
+                ],
+                //商户信息
                 oneSellers: '',
+                //商户信息
                 twoSellers: "",
                 current: 1,
             }
         },
         methods: {
-
             addClassColor: function (index) {
                 this.current = index;
             },
 
+            //跳转到商品菜单页面
             goProductMenu: function (sellerId) {
                 this.$router.push({
                     path: '/product/productMenu',
@@ -227,19 +234,22 @@
                     },
                 })
             },
-
+            //获取导航信息
             getNavList: function () {
                 //查询sessionStorage中是否存在导航信息
-                if (sessionStorage.getItem("navList") != null) {
+                /*if (sessionStorage.getItem("navList") != null) {
                     this.navList = JSON.parse(sessionStorage.getItem("navList"));
                     return;
-                }
+                }*/
                 fetch("/apis/product/findCategoryByParentId/0", {
                     method: 'get',
                 }).then(result => {
                     return result.json()
                 }).then(data => {
                     if (data["code"] === 200) {
+                        for (let i = 0; i < data["code"].length; i++) {
+                            console.log(data["code"].categoryName);
+                        }
                         //存入Session中
                         sessionStorage.setItem("navList", JSON.stringify(data["data"]));
                         this.navList = data["data"];
@@ -248,7 +258,7 @@
                     }
                 })
             },
-
+            //收藏商户
             collectSeller: function (id) {
                 if (this.$store.getters.getUserState === "true") {
                     fetch("/apis/user/collectSeller", {
@@ -540,7 +550,7 @@
         border-bottom: 1px rgb(234, 234, 234) solid;
     }
 
-    .mainLeft_nav > a:hover{
+    .mainLeft_nav_a_hover{
         color: #f10180;
     }
 

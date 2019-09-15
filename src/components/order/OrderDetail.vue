@@ -300,6 +300,7 @@
         box-sizing: border-box;
         background: url(../../assets/order/sprites-y-hash-0476d4fe.png) repeat-x 0 -304px;
         font-size: 14px;
+        position: relative;
     }
 
     .address_info_list > ul > li:hover {
@@ -346,9 +347,10 @@
         display: inline-block;
         width: 34px;
         height: 34px;
-        background: url(../../assets/order/sprites-hash-c9711cec.png);
-        background-position: -160px -116px;
-        float: right;
+        background: url(../../assets/order/sprites-hash-c9711cec.png)-160px -116px;
+        right: 0;
+        bottom: 0;
+        position: absolute;
     }
 
     .product_info {

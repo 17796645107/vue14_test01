@@ -10,7 +10,7 @@
                 <ul>
                     <li v-for="goodCart in goodCartList">
                         <div class="productImage">
-                            <img :src="'../../static/product/'+goodCart.product.defaultImage.image" alt="">
+                            <img :src="'../../static/product/'+goodCart.product.defaultImage.image">
                         </div>
                         <div class="productDetail">
                             <div class="productTitle">

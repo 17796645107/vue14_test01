@@ -2,8 +2,6 @@
     <div class="user_index">
         <!--头部-->
         <IndexHeadTop></IndexHeadTop>
-        <!--    <IndexHeadSearch></IndexHeadSearch>-->
-        <!--    <IndexHeadNav></IndexHeadNav>-->
         <UserTopLogo></UserTopLogo>
         <UserTopNav></UserTopNav>
         <!--页面主体 -->
@@ -71,8 +69,8 @@
                                 <div class="order_main">
                                     <table v-show="orderList.list.length > 0">
                                         <tr v-for="(order,index) in orderList.list" v-show="index < 3">
-                                            <td><img
-                                                    :src="'../../../static/product/'+order.goodCartList[0].product.defaultImage.image">
+                                            <td>
+                                                <img :src="'../../../static/product/'+order.goodCartList[0].product.defaultImage.image">
                                             </td>
                                             <td>
                                                 <p>订单号:{{order.orderNo}}</p>
@@ -128,13 +126,10 @@
         <!--底部-->
         <IndexFoot></IndexFoot>
     </div>
-
 </template>
 
 <script>
     import IndexHeadTop from "../index/IndexHeadTop"
-    import IndexHeadSearch from "../index/IndexHeadSearch"
-    import IndexHeadNav from "../index/IndexHeadNav"
     import IndexFoot from "../index/IndexFoot"
     import UserNav from "../user/UserNav"
     import UserTopNav from "./UserTopNav";
@@ -160,7 +155,7 @@
                     if (data["code"] === 200) {
                         this.orderList = data["data"];
                     } else {
-                        alert(data["msg"]);
+                        console.log(data["msg"]);
                     }
                 });
             }
@@ -174,10 +169,12 @@
                 this.$router.push("/user/login");
             }
         },
+        beforeCreate(){
+
+        },
+
         components: {
             IndexHeadTop,
-            IndexHeadSearch,
-            IndexHeadNav,
             IndexFoot,
             UserNav,
             UserTopNav,

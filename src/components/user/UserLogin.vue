@@ -285,10 +285,8 @@
 
     .usernameList {
         width: 300px;
-        height: 200px;
         border: 1px solid grey;
         position: absolute;
-        float: left;
         z-index: 1;
         background: white;
     }
