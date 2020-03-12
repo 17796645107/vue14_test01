@@ -276,7 +276,7 @@
             if (this.$store.getters.getUserState === "true") {
                 this.user = this.$store.getters.getUser;
             } else {
-                this.$router.push("/user/login");
+                // this.$router.push("/user/login");
             }
         },
         /*watch: {

@@ -26,30 +26,30 @@
 
 <style scoped>
     header {
-        width: 100%;
-        height: 100px;
-    }
+       width: 100%;
+       height: 100px;
+     }
 
     .head {
-        width: 1000px;
-        height: 100%;
-        margin: 0 auto;
-        overflow: hidden;
+      width: 1000px;
+      height: 100%;
+      margin: 0 auto;
+      overflow: hidden;
     }
 
     .logo {
-        float: left;
+      float: left;
     }
 
     .logo > a > img {
-        width: 125px;
+      width: 125px;
     }
 
     .service {
-        float: right;
+      float: right;
     }
 
     .service > img {
-        width: 300px;
+      width: 300px;
     }
 </style>

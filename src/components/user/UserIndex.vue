@@ -166,7 +166,7 @@
                 this.user = this.$store.getters.getUser;
                 this.getOrderTop4(this.$store.getters.getUser.id);
             } else {
-                this.$router.push("/user/login");
+                // this.$router.push("/user/login");
             }
         },
         beforeCreate(){

@@ -57,13 +57,11 @@
             </div>
 
             <!--结算-->
-            <div class="balance">
+            <div class="balance" v-if="GoodCartList == null">
                 <!--优惠券-->
                 <div class="coupon">
                     <div class="coupon_info">
-						<span>
-							已成功使用<em class="coupon_number">1</em>张优惠券
-						</span>
+                        <span>已成功使用<em class="coupon_number">1</em>张优惠券</span>
                         <strong>-￥30</strong>
                         <a href="">取消使用</a>
                     </div>
@@ -86,18 +84,24 @@
                     <a href="javascript:;" class="pay_button" @click="balance">立即结算</a>
                 </div>
             </div>
+
+            <div class="emptyCart" v-if="GoodCartList != null">
+              <span class="icon-cart_empty"></span>
+              <div class="emptyCart_text">
+                <p>购物袋空空如也，</p>
+                <p>快去抢购心仪商品吧~</p>
+                <a href="/index">立即抢购</a>
+                <a href="">查看订单</a>
+              </div>
+
+            </div>
+
             <!--商品服务-->
             <div class="product_service">
                 <ul>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
                 </ul>
             </div>
         </div>
@@ -533,6 +537,41 @@
         color: white;
         text-align: center;
         font-size: 20px;
+    }
+    .emptyCart{
+      width: 100%;
+      height: 120px;
+      padding-top: 80px;
+    }
+    .icon-cart_empty{
+      display: inline-block;
+      margin-left: 350px ;
+      width: 120px;
+      height: 120px;
+      background: url(../../assets/common/sprites-hash-bce65243.png);
+      background-position: -164px 0;
+    }
+    .emptyCart_text{
+      display: inline-block;
+      vertical-align: top;
+    }
+    .emptyCart_text p{
+      font-size: 18px;
+    }
+    .emptyCart_text a{
+      display: inline-block;
+      border-radius: 3px;
+      text-decoration: none;
+      text-align: center;
+      width: 60px;
+      padding: 0 19px;
+      height: 30px;
+      line-height: 30px;
+      background-color: #f10180;
+      border: 1px solid #f10180;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 5px;
     }
 
     .product_service {
