@@ -50,12 +50,12 @@
                         <div class="read">
                             <input type="checkbox" id="user_read" v-model="read" @blur="checkRead"/><label
                                 for="user_read">我已阅读并接受以下条款：</label>
-                            <a href="">《唯品会服务条款》</a>
+                            <a href="">《服务条款》</a>
                             <a href="">《隐私条款》</a>
-                            <a href="">《唯品支付用户服务协议》</a>
-                            <a href="">《唯品信用服务协议》</a>
+                            <a href="">《支付用户服务协议》</a>
+                            <a href="">《信用服务协议》</a>
                         </div>
-                        <div :class="{read_msg:true,red:readRed}">{{readError}}</div><!--提示信息-->
+                        <div :class="{readError:true,red:readRed}">{{readError}}</div><!--提示信息-->
 
                         <!--提交按钮-->
                         <input type="submit" value="立即注册" class="sub_register" @click="register"/>
@@ -143,7 +143,7 @@
                 //异步跨域请求
                 fetch("/apis/user/sendCode", {
                     method: "post",
-                    headers: {
+                        headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({"telephone": this.telephone})

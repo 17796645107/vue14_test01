@@ -1,7 +1,7 @@
 <template>
     <div class="head_logo">
-        <img src="../../assets/index/logo.png"/>
-        <img src="../../assets/index/logoService.png"/>
+        <img src="../../assets/index/logo.png" alt=""/>
+        <img src="../../assets/index/logoService.png" alt=""/>
 
         <div class="goodCart">
             <i></i><a href="javascript:void(0);" @click="goGoodCart">购物车</a>
@@ -104,7 +104,7 @@
             },
             //搜索商品
             searchProduct: function () {
-                /*fetch("/apis/user/searchProduct/",{
+                fetch("/apis/user/searchProduct/",{
                   method:"post",
                   headers:{
                     'Content-Type':'application/json',
@@ -120,7 +120,7 @@
                     else {
                       console.log(data["msg"]);
                     }
-                  })*/
+                  })
             },
             //展示用户搜索记录
             list_searchHistory: function () {

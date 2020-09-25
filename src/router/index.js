@@ -20,7 +20,9 @@ import SellerLogin from '../components/seller/SellerLogin'
 import SellerMain from '../components/seller/SellerMain'
 import adminLogin from "../components/admin/adminLogin";
 import index from "../components/admin/index";
-
+import Fefault from "../components/admin/Fefault";
+import ProductManager from "../components/admin/ProductManager";
+import ProductUpdate from "../components/admin/ProductUpdate";
 Vue.use(Router);
 
 export default new Router({
@@ -111,7 +113,26 @@ export default new Router({
         },
         {
             path: "/admin/index",
-            component: index
+            name: "index",
+            component: index,
+            redirect:"/Page2",//重定向，第一次进入就进入，不添加的话第一次进入右侧是空白
+            children:[
+              {
+                path: '/seller/productList',
+                name: 'ProductManager',
+                component: ProductManager
+              },
+              {
+                path: '/Page2',
+                name: 'Page2',
+                component: Fefault
+              },
+              {
+                path: '/Page3',
+                name: 'Page3',
+                component: ProductUpdate
+              }
+            ]
         },
     ],
 })

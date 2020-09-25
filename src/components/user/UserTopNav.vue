@@ -9,7 +9,7 @@
             <div class="main_nav">
                 <div class="nav_auto_center">
                     <ul>
-                        <li><a href="">我的唯品会</a></li>
+                        <li><a href="">我的信息</a></li>
                         <li><a href="">安全中心</a></li>
                         <li class="nav_category"><a href="">分类</a></li>
                         <li class="nav_comingsoon"><a href="">预告</a></li>
@@ -29,6 +29,9 @@
 </script>
 
 <style scoped>
+  li{
+    float: left;
+  }
     nav {
         width: 100%;
         height: 40px;

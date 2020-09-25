@@ -67,7 +67,7 @@
                 </div>
                 <div class="product_list" id="product_list">
                     <div class="product" v-for="product in productList.list">
-                        <a href="javascript:;" @click="goProductDetail(product.defaultImage.productId)"
+                        <a href="javascript:;" @click="goProductDetail(product.productNo)"
                            class="product_image">
                             <!--动态拼接src-->
                             <!--单引号包裹的是常量，+号后跟的是变量，拼接起来用双引号包裹   -->
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="title">
-                            <a href="javascript:void(0)" @click="goProductDetail(product.defaultImage.productId)">{{product.title}}</a>
+                            <a href="javascript:void(0)" @click="goProductDetail(product.productNo)">{{product.title}}</a>
                         </div>
                         <div class="new_product">
                             <img src="../../assets/product/fe509ab1-ec01-4ee8-b053-ed3f2e052c47.png"/>
@@ -166,7 +166,7 @@
                     if (data["code"] === 200) {
                         this.secondaryList = data["data"];
                     } else {
-                        alert(data["msg"]);
+                        console.log(data["msg"]);
                     }
                 })
             },
@@ -207,7 +207,7 @@
                     if (data["code"] === 200) {
                         this.productSize = data["data"];
                     } else {
-                        alert(data["msg"]);
+                        console.log(data["msg"]);
                     }
                 })
             },
@@ -234,7 +234,7 @@
                     if (data["code"] === 200) {
                         this.productList = data["data"];
                     } else {
-                        alert(data["msg"]);
+                        console.log(data["msg"]);
                     }
                 })
             },
@@ -270,6 +270,7 @@
                         } else {
                             alert(data["msg"]);
                         }
+
                     })
             },
             getSellerNum: function (sellerId) {
@@ -331,6 +332,9 @@
 </script>
 
 <style scoped>
+  li{
+    float: left;
+  }
     .body {
         width: 1000px;
         margin: 50px auto;

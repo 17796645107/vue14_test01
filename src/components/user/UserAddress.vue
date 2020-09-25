@@ -54,6 +54,7 @@
                                     <strong>*</strong>收货人:
                                 </label>
                                 <input type="text" placeholder="收货人姓名" v-model="name">
+                                <div class="consignee-error"></div>
                             </div>
                             <div class="area">
                                 <label>
@@ -63,21 +64,24 @@
                                 <input type="text" placeholder="市" v-model="city">
                                 <input type="text" placeholder="区/县" v-model="town">
                                 <!--<input type="text" placeholder="乡镇/街道" v-model="area">-->
+                              <div class="area-error"></div>
                             </div>
                             <div class="address">
                                 <label>
 
                                 </label>
                                 <input type="text" placeholder="详细地址" v-model="area">
+                              <div class="address-error"></div>
                             </div>
                             <div class="phone">
                                 <label>
                                     <strong>*</strong>手机:
                                 </label>
                                 <input type="text" placeholder="手机号" v-model="telephone">
+                                <div class="phone-error"></div>
                             </div>
                             <div class="address_add_submit">
-                                <input type="submit" value="保存收货地址" @click="saveAddress"/>
+                                <input type="button" value="保存收货地址" @click="saveAddress"/>
                             </div>
                         </form>
                     </div>
@@ -181,11 +185,11 @@
             }
         },
         created() {
-            if (this.$store.getters.getUserState === "true") {
+            /*if (this.$store.getters.getUserState === "true") {
                 this.getUserAddressList(this.$store.getters.getUser.id);
             } else {
                 this.$router.push("/user/login");
-            }
+            }*/
         }
     }
 </script>

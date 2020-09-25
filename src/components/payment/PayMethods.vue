@@ -131,6 +131,9 @@
 </script>
 
 <style scoped>
+  li{
+    float: left;
+  }
     .body {
         width: 960px;
         margin: 0 auto;

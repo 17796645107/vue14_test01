@@ -184,6 +184,9 @@
 </script>
 
 <style scoped>
+  li{
+    float: left;
+  }
     .body {
         width: 100%;
         background: url(../../assets/user/layout-bg.png) no-repeat center 0 rgb(245, 246, 248);

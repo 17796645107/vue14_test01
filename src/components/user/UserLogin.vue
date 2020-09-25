@@ -130,7 +130,7 @@
                         },
                         body: JSON.stringify({
                             "telephone": this.telephone,
-                            "pwd": this.password,
+                            "password": this.password,
                         })
                     }).then(result => {
                     return result.json();
@@ -198,6 +198,9 @@
 </script>
 
 <style scoped>
+  li{
+    float: left;
+  }
     .main {
         width: 100%;
         height: 650px;

@@ -67,6 +67,9 @@
 </script>
 
 <style scoped>
+  li{
+    float: left;
+  }
     header {
         width: 100%;
         margin-bottom: 30px;
@@ -82,11 +85,11 @@
     }
 
     .logo {
-        width: 194px;
-        height: 48px;
+        width: 100px;
+        height: 60px;
         margin-top: 20px;
-        background: url(../../assets/goodCart/sprites-hash-bce65243.png) -288px 0;
-        /*background-position:;*/
+        background: url(../../assets/index/logo.png)  no-repeat;
+      background-size: cover;
         float: left;
     }
 

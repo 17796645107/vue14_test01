@@ -134,6 +134,7 @@
     }
 
     .main_nav > ul > li {
+      float: left;
         width: 70px;
         height: 100%;
         text-align: center;

@@ -35,7 +35,7 @@
                                     <td><a href="">我的优惠券</a></td>
                                 </tr>
                                 <tr>
-                                    <td><a href="">我的唯品币</a></td>
+                                    <td><a href="">我的金币</a></td>
                                     <td><a href="">唯品金融</a></td>
                                 </tr>
                             </table>
@@ -64,8 +64,8 @@
                                     <td><a href="">我的优惠券</a></td>
                                 </tr>
                                 <tr>
-                                    <td><a href="">我的唯品币</a></td>
-                                    <td><a href="">唯品金融</a></td>
+                                    <td><a href="">我的金币</a></td>
+                                    <td><a href="">金融</a></td>
                                 </tr>
                             </table>
                         </div>
@@ -101,7 +101,7 @@
                     <div class="vip_hidden">
                         <ul>
                             <li><a href="">俱乐部首页</a></li>
-                            <li><a href="">唯品币兑换</a></li>
+                            <li><a href="">金币兑换</a></li>
                             <li><a href="">免费抽大奖</a></li>
                         </ul>
                     </div>
@@ -120,7 +120,7 @@
                 <li class="nav_list_phone">
                     <i></i><a href="">手机版</a>
                     <div class="phone_hidden">
-                        <img src="../../assets/index/1466134037230.jpg">
+<!--                        <img src="../../assets/index/1466134037230.jpg">-->
                     </div>
                 </li>
                 <li class="nav_list_more">
@@ -161,7 +161,13 @@
         methods: {
             //用户注销
             Logout: function () {
-                fetch("/apis/user/logout", {
+                //删除会话中用户信息
+                this.$store.commit('userLogout');
+                //删除Cookie中的Token
+                this.$cookies.remove("token");
+                //刷新界面
+                window.location.reload();
+                /*fetch("/apis/user/logout", {
                     method: 'get',
                 }).then(result => {
                     return result.json()
@@ -176,7 +182,7 @@
                     } else {
                         console.log(data["msg"]);
                     }
-                });
+                });*/
             }
         },
         mounted() {
@@ -193,6 +199,10 @@
 </script>
 
 <style scoped>
+
+  li{
+    float: left;
+  }
     .top_nav {
         width: 100%;
         min-width: 1000px;

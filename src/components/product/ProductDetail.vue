@@ -127,10 +127,6 @@
             }
         },
         methods: {
-            /**
-             *
-             * @param count
-             */
             getCartCount: function (count) {
                 this.cartNumber = count;
             },
@@ -155,7 +151,7 @@
                         },
                         body: JSON.stringify({
                             "userId": this.User.id,
-                            "productId": this.Product.defaultImage.productId,
+                            "productId": this.Product.productNo,
                             "productColor": this.selectColor,
                             "productSize": this.selectSize,
                             "productNumber": this.number,
@@ -226,7 +222,7 @@
             getProductById: function (productId) {
                 let url = "/apis/product/getProductByProductId/" + productId;
                 fetch(url, {
-                    method: 'get'
+                    method: 'get',
                 }).then(result => {
                     return result.json()
                 }).then(data => {
@@ -295,7 +291,7 @@
                         "Content-type": "application/json"
                     },
                     body: JSON.stringify({
-                        "productId": this.Product.defaultImage.productId,
+                        "productId": this.Product.productNo,
                         "productColor": this.selectColor,
                         "productSize": this.selectSize,
                     })
@@ -392,10 +388,12 @@
         width: 100%;
         height: 100%;
     }
-
+    li{
+      float: left;
+    }
     .img_list > ul > li {
-        width: 14%;
-        height: 100%;
+      width: 14%;
+      height: 100%;
     }
 
     .img_list > ul > li:hover {

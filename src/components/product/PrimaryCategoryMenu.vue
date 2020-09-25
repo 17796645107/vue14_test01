@@ -225,6 +225,7 @@
     }
 
     .category_warp > ul > li {
+      float: left;
         width: 20%;
         height: 140px;
     }

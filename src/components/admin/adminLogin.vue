@@ -32,8 +32,25 @@
         },
         methods:{
             adminLogin:function(){
-                console.log(this.username);
-                console.log(this.password);
+                fetch("/apis/seller/login",{
+                    method:"post",
+                    headers:{
+                      "Content-type":"application/json"
+                    },
+                    body:JSON.stringify({"sellerUsername":this.username,"sellerPassword":this.password})
+                  }).then(result =>{
+                    return result.json()
+                  }).then(data =>{
+                    if (data["code"] === 200){
+                        sessionStorage.setItem("seller",JSON.stringify(data["data"]));
+                        this.$router.push({
+                            path: '/admin/index',
+                        })
+                    }
+                    else{
+                      alert(data["msg"]);
+                    }
+                  })
             }
         },
 

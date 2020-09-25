@@ -16,7 +16,7 @@
         </div>
 
         <!--推荐商品，新人优惠商品-->
-        <div class="ad">
+        <!--<div class="ad">
             <div class="daily_area">
                 <img src="../../assets/index/15344789862278.jpg"/>
                 <table cellspacing="10px">
@@ -48,7 +48,7 @@
                 </table>
             </div>
 
-            <!--<div class="newGoods_area">
+            &lt;!&ndash;<div class="newGoods_area">
               <div class="newGoods_title">
                 <img src="../../assets/index/title.png">
               </div>
@@ -141,13 +141,13 @@
                   </td>
                 </tr>
               </table>
-            </div>-->
-        </div>
+            </div>&ndash;&gt;
+        </div>-->
 
         <div class="main">
             <div v-bind:class="{mainLeft_nav:true,mainLeft_nav_fixed:leftNavFixed}" id="mainLeft_nav">
-                <a href="#jingxuan"><i></i>精选</a>
-                <a href="#huodong"><i></i>活动</a>
+                <!--<a href="#jingxuan"><i></i>精选</a>
+                <a href="#huodong"><i></i>活动</a>-->
                 <a :href="'#'+ nav.categoryName" v-for="(nav,index) in navList"
                    :class="{bg:index === current,color:index === current,colorChange:index !== current}"
                    v-on:click="addClassColor(index)">
@@ -158,13 +158,13 @@
                 <div class="main_title">
                     <img src="../../assets/index/today_DDp.png"/>
                 </div>
-                <div class="main_product">
-                    <!--精选-->
+                <!--<div class="main_product">
+                    &lt;!&ndash;精选&ndash;&gt;
                     <a name="jingxuan" class="h1">精选</a>
                 </div>
                 <div class="main_product">
                     <a name="huodong" class="h1">活动</a>
-                </div>
+                </div>-->
                 <div class="main_product">
                     <a :name="navList[0].categoryName" class="h1">{{navList[0].categoryName}}</a>
                     <div class="product" v-for="seller in oneSellers">
@@ -334,7 +334,7 @@
             this.getTypeTwoSeller();
             //导航栏固定左侧效果
             window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 1000) {
+                if (window.pageYOffset > 750) {
                     this.leftNavFixed = true;
                 } else if (window.pageYOffset < 1000 && window.pageYOffset > 130) {
                     this.leftNavFixed = false;

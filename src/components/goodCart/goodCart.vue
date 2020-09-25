@@ -57,7 +57,7 @@
             </div>
 
             <!--结算-->
-            <div class="balance" v-if="GoodCartList == null">
+            <div class="balance" v-if="GoodCartList != null">
                 <!--优惠券-->
                 <div class="coupon">
                     <div class="coupon_info">
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="emptyCart" v-if="GoodCartList != null">
+            <div class="emptyCart" v-if="GoodCartList == null">
               <span class="icon-cart_empty"></span>
               <div class="emptyCart_text">
                 <p>购物袋空空如也，</p>
@@ -186,6 +186,9 @@
 </script>
 
 <style scoped>
+  li{
+    float: left;
+  }
     header {
         width: 100%;
         margin-bottom: 30px;
@@ -204,9 +207,7 @@
         width: 194px;
         height: 48px;
         margin-top: 20px;
-        background: url(../../assets/goodCart/sprites-hash-bce65243.png);
-        background-position: -288px 0;
-        float: left;
+        background: url(../../assets/index/logo.png);
     }
 
     .head_nav {

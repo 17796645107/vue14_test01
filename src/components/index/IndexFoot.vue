@@ -61,7 +61,7 @@
 
             </dl>
             <dl>
-                <dt>唯品会APP二维码</dt>
+                <dt>APP二维码</dt>
                 <dd><img src="../../assets/user/page_bottom_dl_n.png"></dd>
             </dl>
         </div>
@@ -78,10 +78,10 @@
             <a href="">联系我们</a>
         </div>
         <div class="footer_context">
-            <p>Copyright © 2008-2018 vip.com，All Rights Reserved 使用本网站即表示接受唯品会用户协议。版权所有 广州唯品会电子商务有限公司</p>
-            <p><img src="../../assets/user/police_icon.png">粤公网安备 44010302111111号 粤ICP备08114786号 增值业务经营许可证：粤B2-20170777
-                网络文化经营许可证：粤网文〔2015〕1528-229</p>
-            <p>自营主体经营证照 风险监测信息 互联网药品交易服务资格证（粤C20140002）</p>
+            <p>Copyright © 2008-2018 qiushuiyiren.com，All Rights Reserved 使用本网站即表示接受用户协议。版权所有 秋水伊人电子商务有限公司</p>
+            <p><img src="../../assets/user/police_icon.png">豫公网安备 44010302111111号 豫ICP备08114786号 增值业务经营许可证：豫B2-20170777
+                网络文化经营许可证：豫网文〔2015〕1528-229</p>
+            <p>自营主体经营证照 风险监测信息 互联网药品交易服务资格证（豫C20140002）</p>
         </div>
         <div class="pay_list">
             <ul>
@@ -103,6 +103,10 @@
 </script>
 
 <style scoped>
+
+  li{
+    float: left;
+  }
     .footer_main {
         width: 1000px;
         height: 100%;
